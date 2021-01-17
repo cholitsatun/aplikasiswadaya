@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BahanBaku extends Model
 {
+    protected $table = "bahanbaku";
     protected $fillable = ['nama_bahan', 'supplier', 'stok_bahan', 'tanggal_masuk'];
 
     public function Produk() {

@@ -21,7 +21,7 @@ class LoginController extends Controller
             // Passwordnya pake bcrypt
         if (Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password])) {
             // if successful, then redirect to their intended location
-            return redirect()->intended('/layout');
+            return redirect()->intended('/dashboard');
         }
 
         return redirect()->intended('/login');

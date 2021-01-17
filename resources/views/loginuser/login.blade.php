@@ -7,24 +7,24 @@
 <!--===============================================================================================-->	
 	<link rel="icon" type="image/png" href="logintemp/images/icons/favicon.ico"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="logintemp/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="logintemp/vendor/bootstrap/css/bootstrap.min.css"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="logintemp/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="logintemp/fonts/font-awesome-4.7.0/css/font-awesome.min.css"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="logintemp/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="logintemp/fonts/Linearicons-Free-v1.0.0/icon-font.min.css"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="logintemp/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="logintemp/vendor/animate/animate.css"/>
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="logintemp/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="logintemp/vendor/css-hamburgers/hamburgers.min.css"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="logintemp/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="logintemp/vendor/animsition/css/animsition.min.css"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="logintemp/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="logintemp/vendor/select2/select2.min.css"/>
 <!--===============================================================================================-->	
-	<link rel="stylesheet" type="text/css" href="logintemp/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="logintemp/vendor/daterangepicker/daterangepicker.css"/>
 <!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="logintemp/css/util.css">
-	<link rel="stylesheet" type="text/css" href="logintemp/css/main.css">
+	<link rel="stylesheet" type="text/css" href="logintemp/css/util.css"/>
+	<link rel="stylesheet" type="text/css" href="logintemp/css/main.css"/>
 <!--===============================================================================================-->
 </head>
 <body>
@@ -32,7 +32,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
-				<form class="login100-form validate-form flex-sb flex-w">
+				<form method="POST" class="login100-form validate-form flex-sb flex-w" action="/login">
 					{{ csrf_field() }}
 					<span class="login100-form-title p-b-32">
 						Login
