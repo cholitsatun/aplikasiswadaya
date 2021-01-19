@@ -17,7 +17,7 @@ class CreateBahanbakusTable extends Migration
             $table->bigIncrements('id_bahan');
             $table->timestamps();
             $table->string('nama_bahan');
-            $table->integer('stok_bahan');
+            $table->integer('stok_bahan')->default('0');
             $table->integer('kategori')->default('0');
 
             
