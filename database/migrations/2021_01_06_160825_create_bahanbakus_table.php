@@ -18,12 +18,9 @@ class CreateBahanbakusTable extends Migration
             $table->timestamps();
             $table->string('nama_bahan');
             $table->integer('stok_bahan');
-            $table->integer('kategori');
+            $table->integer('kategori')->default('0');
 
             
-        //foreign key
-        $table->unsignedBigInteger('product_id');
-        $table->foreign('product_id')->references('id_produk')->on('produks')->onDelete('cascade');
         });
     }
 
