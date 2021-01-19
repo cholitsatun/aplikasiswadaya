@@ -18,12 +18,12 @@ class CreateInputbahansTable extends Migration
             $table->timestamps();
             $table->string('supplier');
             $table->integer('jumlah_inb');
-            $table->date('tanggal_inb');
+            $table->date('tanggal_inb')->nullable();
             $table->date('tanggal_out')->nullable();
 
             //foreign key
-            $table->unsignedBigInteger('bahan_id');
-            $table->foreign('bahan_id')->references('id_bahan')->on('bahans')->onDelete('cascade');
+            $table->unsignedBigInteger('bahanbaku_id');
+            $table->foreign('bahanbaku_id')->references('id_bahan')->on('bahanbakus')->onDelete('cascade');
         });
     }
 

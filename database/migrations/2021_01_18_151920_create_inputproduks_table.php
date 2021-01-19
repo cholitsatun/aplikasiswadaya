@@ -17,7 +17,8 @@ class CreateInputproduksTable extends Migration
             $table->bigIncrements('id_inp');
             $table->timestamps();
             $table->integer('jumlah_inp');
-            $table->date('tanggal_inp');
+            $table->date('tanggal_inp')->nullable();
+            $table->date('tanggal_out')->nullable();
 
             //foreign key
             $table->unsignedBigInteger('product_id');
