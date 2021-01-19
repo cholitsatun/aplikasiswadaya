@@ -14,7 +14,7 @@ class CreateInputproduksTable extends Migration
     public function up()
     {
         Schema::create('inputproduks', function (Blueprint $table) {
-            $table->bigIncrements('id_inp');
+            $table->bigIncrements('id');
             $table->timestamps();
             $table->integer('jumlah_inp');
             $table->date('tanggal_inp')->nullable();
@@ -22,7 +22,7 @@ class CreateInputproduksTable extends Migration
 
             //foreign key
             $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id_produk')->on('produks')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('produks')->onDelete('cascade');
         });
     }
 

@@ -19,10 +19,10 @@ class CreateProdukBahanTable extends Migration
             $table->integer('jumlah_bahan');
 
             $table->unsignedBigInteger('bahan_id');
-            $table->foreign('bahan_id')->references('id_bahan')->on('bahanbakus')->onDelete('cascade');
+            $table->foreign('bahan_id')->references('id')->on('bahanbakus')->onDelete('cascade');
 
             $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id_produk')->on('produks')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('produks')->onDelete('cascade');
         });
     }
 

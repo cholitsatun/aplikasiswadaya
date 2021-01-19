@@ -26,10 +26,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Bahan Baku</th>
-                        <th>Supplier</th>
                         <th>Stok</th>
-                        <th>Tanggal Masuk</th>
-                        <th>Setting</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -37,9 +34,7 @@
                           <tr>
                               <td>{{$nomor+1}}</td>
                               <td>{{$item->nama_bahan}}</td>
-                              <td>{{$item->supplier}}</td>
                               <td>{{$item->stok_bahan}}</td>
-                              <td>{{$item->tanggal_masuk}}</td>
                               <td>
                                 <a href="/bahanbaku/{{$item->id_bahan}}/edit"><button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm"><i class="material-icons">edit</i></button></a>
                                 <form action="/bahanbaku/{{$item->id}}" method="POST" style="display:inline">

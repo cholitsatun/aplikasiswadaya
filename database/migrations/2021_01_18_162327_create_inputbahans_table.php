@@ -14,7 +14,7 @@ class CreateInputbahansTable extends Migration
     public function up()
     {
         Schema::create('inputbahans', function (Blueprint $table) {
-            $table->bigIncrements('id_inb');
+            $table->bigIncrements('id');
             $table->timestamps();
             $table->string('supplier');
             $table->integer('jumlah_inb');
@@ -23,7 +23,7 @@ class CreateInputbahansTable extends Migration
 
             //foreign key
             $table->unsignedBigInteger('bahanbaku_id');
-            $table->foreign('bahanbaku_id')->references('id_bahan')->on('bahanbakus')->onDelete('cascade');
+            $table->foreign('bahanbaku_id')->references('id')->on('bahanbakus')->onDelete('cascade');
         });
     }
 

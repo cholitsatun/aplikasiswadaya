@@ -14,7 +14,7 @@ class CreatePenjualansTable extends Migration
     public function up()
     {
         Schema::create('penjualans', function (Blueprint $table) {
-            $table->bigIncrements('id_transaksi');
+            $table->bigIncrements('id');
             $table->timestamps();
             $table->string('nama_pembeli');
             $table->integer('barang_terjual');
@@ -24,7 +24,7 @@ class CreatePenjualansTable extends Migration
  
         //foreign key
         $table->unsignedBigInteger('product_id');
-        $table->foreign('product_id')->references('id_produk')->on('produks')->onDelete('cascade');
+        $table->foreign('product_id')->references('id')->on('produks')->onDelete('cascade');
         });
     }
 

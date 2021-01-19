@@ -50,6 +50,12 @@
               <p>Stok Barang Jadi</p>
             </a>
           </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="#">
+              <i class="material-icons">person</i>
+              <p>Input Bahan Baku</p>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
