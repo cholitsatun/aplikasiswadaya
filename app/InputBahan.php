@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class InputBahan extends Model
 {
+    protected $table = 'inputbahans';
     protected $fillable = ['supplier', 'jumlah_inb', 'tanggal_inb', 'tanggal_out'];
 
     public function BahanBaku() {
