@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class InputBahan extends Model
 {
-    protected $fillable = ['supplier', 'jumlah_inb', 'tanggal_inb', 'tanggal_out'];
+    protected $table = 'inputbahans';
+    protected $fillable = ['bahanbaku_id', 'supplier', 'jumlah_inb', 'tanggal_inb', 'tanggal_out'];
 
     public function BahanBaku() {
         return $this->belongsTo('App\BahanBaku', 'id', 'id');

@@ -1,5 +1,6 @@
 <?php
 
+use App\BahanBaku;
 use Illuminate\Database\Seeder;
 
 class BahanBakuSeeder extends Seeder

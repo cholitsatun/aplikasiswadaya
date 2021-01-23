@@ -14,7 +14,7 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title ">Simple Table</h4>
+              <h4 class="card-title ">Tambah Bahan Baku</h4>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -26,16 +26,12 @@
                         <input type="text" class="form-control" name="bahan">
                       </div>
                       <div class="form-group">
-                        <label class="bmd-label-floating">Nama Supplier</label>
-                        <input type="text" class="form-control" name="supplier">
-                      </div>
-                      <div class="form-group">
                         <label class="bmd-label-floating">Stok Bahan</label>
                         <input type="number" class="form-control" name="stok">
                       </div>
                       <div class="form-group">
-                        <label class="bmd-label-floating">Tanggal Masuk</label>
-                        <input type="date" class="form-control" name="tanggal">
+                        <label class="bmd-label-floating">Kategori</label>
+                        <input type="number" class="form-control" name="kategori">
                       </div>
                       <button type="submit" class="btn btn-primary pull-right">Simpan</button>
                 </form>

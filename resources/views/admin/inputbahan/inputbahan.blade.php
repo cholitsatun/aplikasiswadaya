@@ -6,7 +6,7 @@
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
       <div class="navbar-wrapper">
-        <h2 class="navbar-brand">Stok Bahan Baku</h2>
+        <h2 class="navbar-brand">Input Bahan Baku</h2>
       </div>
       
     </div>
@@ -17,38 +17,42 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title ">Stok Bahan Baku</h4>
-              <a href="/bahanbaku/tambah" class="btn btn-primary btn-link btn-sm" style="background-color:white;" role="button">Tambah Bahan Baku</a>
+              <h4 class="card-title ">Input Bahan Baku</h4>
+              <a href="/inputbahan/tambah" class="btn btn-primary btn-link btn-sm" style="background-color:white;" role="button">Tambah Stok Bahan Baku</a>
             </div>
             <div class="card-body">
-                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <table id="input" class="table table-striped table-bordered" style="width:100%">
                   <thead>
                     <tr>
                         <th>No</th>
+                        <th>Tanggal Masuk</th>
                         <th>Nama Bahan Baku</th>
-                        <th>Stok</th>
-                        <th>Kategori</th>
+                        <th>Supplier</th>
+                        <th>Jumlah</th>
                         <th>Setting</th>
                     </tr>
                   </thead>
                   <tbody>
-                      @foreach ($bahan as $nomor=>$item)
+                      @foreach ($inputbahan as $nomor=>$item)
                           <tr>
                               <td>{{$nomor+1}}</td>
-                              <td>{{$item->nama_bahan}}</td>
-                              <td>{{$item->stok_bahan}}</td>
-                              <td>{{$item->kategori}}</td>
+                              <td>{{$item->tanggal_inb}}</td>
+                              <td>{{$item->bahanbaku->nama_bahan}}</td>
+                              <td>{{$item->supplier}}</td>
+                              <td>{{$item->jumlah_inb}}</td>
                               <td>
-                                <a href="{{route('admin.bahanbaku.edit', ['id' => $item->id]) }}">
+                                <a href="/inputbahan/{{$item->id}}/edit">
                                   <button type="submit" class="btn btn-primary btn-link btn-sm"><i class="material-icons">edit</i></button>
                                 </a>
-                                <form action="{{route('admin.bahanbaku.destroy', ['id' => $item->id]) }}" method="POST" style="display:inline">
-                                  {{ csrf_field() }}
-                                  {{ method_field('DELETE') }}
-                                  <a href="javascript:;" onclick="parentNode.submit();">
-                                    <button type="submit" class="btn btn-primary btn-link btn-sm"><i class="material-icons">delete</i></button>
-                                  </a>
-                                 </form>
+                                <form action="/inputbahan/{{$item->id}}" method="POST" style="display:inline">
+                                    {{ csrf_field() }}
+                                    {{ method_field('DELETE') }}
+                                    <a href="javascript:;" onclick="parentNode.submit();">                                      
+                                      <button type="submit" class="btn btn-danger btn-link btn-sm">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                      </button>
+                                    </a>
+                                </form>
                               </td>
                           </tr>
                       @endforeach
@@ -67,7 +71,7 @@
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-        $('#example').DataTable();
+        $('#input').DataTable();
     } );
   </script>
 @endsection
