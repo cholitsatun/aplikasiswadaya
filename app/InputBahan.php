@@ -10,7 +10,7 @@ class InputBahan extends Model
     protected $fillable = ['bahanbaku_id', 'supplier', 'jumlah_inb', 'tanggal_inb', 'tanggal_out'];
 
     public function BahanBaku() {
-        return $this->belongsTo('App\BahanBaku', 'id', 'id');
+        return $this->belongsTo('App\BahanBaku', 'bahanbaku_id', 'id');
     }
 
 }

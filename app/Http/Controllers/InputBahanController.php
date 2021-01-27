@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\BahanBaku;
 use App\InputBahan;
-use Barryvdh\DomPDF\PDF;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
 class InputBahanController extends Controller
@@ -22,7 +22,7 @@ class InputBahanController extends Controller
     public function store(Request $request){
         $bahanbaku = BahanBaku::find($request->bahanbaku_id);
         $bahanbaku->update([
-            'stok_bahan' => $bahanbaku->stok_bahan + $request->jumlah_inb
+            'stok_bahan' => $bahanbaku->stok_bahan + $request->jumlah
         ]);
 
         InputBahan::create([
@@ -45,73 +45,51 @@ class InputBahanController extends Controller
     public function update(Request $request, $id)
     {
         $bahanbaku = BahanBaku::find($request->bahanbaku_id);
-
-        $inputbahan = InputBahan::find($id);  
-        $this->undo_stock($input_produk);              
-        $this->add_stock($request);    
-        
+        $inputbahan = InputBahan::find($id);    
         $bahanbaku->update([
             'stok_bahan' => $bahanbaku->stok_bahan - $inputbahan->jumlah_inb + $request->jumlah_inb           
         ]);
 
-        $inputbahan::update([
-            'bahanbaku_id' => $request->bahanbaku_id,            
+        $inputbahan->update([
+            'bahanbaku_id' => $request->bahanbaku_id,
+            'supplier' => $request->supplier,            
             'jumlah_inb' => $request->jumlah_inb,            
             'tanggal_inb' => $request->tanggal_inb, 
         ]);
 
-        return redirect()->route('admin.inputbahan.inputbahan');
+        return redirect()->route('admin.inputbahan.index');
 
     }
 
     public function destroy($id)
     {   
-        // cari input produk
+        // cari input bahan
+        
         $inputbahan = InputBahan::find($id);                
         // undo bahan baku dan stok otomatis
-        // $this->undo_stock($inputbahan);
+        $bahanbaku = BahanBaku::find($inputbahan->bahanbaku_id);
+        $bahanbaku->update([                    
+            'stok_bahan' => $bahanbaku->stok_bahan - $inputbahan->jumlah_inb
+        ]);
         // hapus input produk
         $inputbahan->delete();
         return redirect()->route('admin.inputbahan.index');
     }
 
+    public function pdf(){
+        $inputbahan = InputBahan::all();
+        return view('admin.laporan.laporan', compact('inputbahan'));
+    }
+
     public function cetak_pdf()
     {
-    	$input_produk = InputBahan::all();
+        $inputbahan = InputBahan::all();
+        // $bahanbaku = 
  
-    	$pdf = PDF::loadview('inputbahan_pdf',['inputbahan'=>$inputbahan]);
-    	return $pdf->download('laporan-pegawai-pdf');
+    	$pdf = PDF::loadview('admin.laporan.laporan_pdf',['inputbahan'=>$inputbahan]);
+    	return $pdf->stream('laporan-bahanbaku-pdf');
     }
 
 
-    // private function add_stock($request){
-    //     for ($i=0; $i < $request->jumlah_inb ; $i++) { 
-            
-    //         $bahanbaku = BahanBaku::find($request->bahan_id);   
-            
-    //     }
-    //     $bahanbaku->update([                    
-    //         'stok_bahan' => $bahanbaku->stok_bahan + $request->jumlah_inb
-    //     ]);
-    // }
-
-    // private function undo_stock($inputbahan){
-
-    //     // balikin bahan baku
-    //     for ($i=0; $i < $inputbahan->jumlah_inb ; $i++) {             
-    //         $produk = Produk::find($input_produk->product_id);               
-    //         $bahans = $produk->BahanBaku()->get();                        
-    //         foreach ($bahans as $bahan){                
-    //             $hasil = $bahan->stok_bahan + $bahan->pivot->jumlah_bahan;                
-    //             $bahan->update([                    
-    //                 'stok_bahan' => $hasil
-    //             ]);
-    //         }            
-    //     }    
-        
-    //     // balikin stok produk
-    //     $produk->update([                    
-    //         'stok_produk' => $produk->stok_produk - $input_produk->jumlah_inp
-    //     ]);
-    // }
+    
 }

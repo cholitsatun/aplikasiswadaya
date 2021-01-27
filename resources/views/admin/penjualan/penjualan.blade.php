@@ -45,12 +45,18 @@
                               <td>{{$item->keterangan}}</td>
                               <td>{{$item->total_harga}}</td>
                               <td>
-                                <a href="/bahanbaku/{{$item->id}}/edit"><button type="button" rel="tooltip" title="Edit" class="btn btn-primary btn-link btn-sm"><i class="material-icons">edit</i></button></a>
-                                <form action="/bahanbaku/{{$item->id}}" method="POST" style="display:inline">
-                                    {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <button data-toggle="tooltip" title="Trash" class="btn btn-primary btn-link btn-sm"><i class="material-icons">delete</i></button>
-                                </form>
+                                <a href="/penjualan/{{$item->id}}/edit"><button type="button" rel="tooltip" class="btn btn-primary btn-link btn-sm">
+                                  <i class="material-icons">edit</i></button>
+                                </a>
+                                <form action="/penjualan/{{$item->id}}" method="POST" style="display:inline">
+                                  {{ csrf_field() }}
+                                  {{ method_field('DELETE') }}
+                                  <a href="javascript:;" onclick="parentNode.submit();">                                      
+                                    <button type="submit" class="btn btn-danger btn-link btn-sm">
+                                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </button>
+                                  </a>
+                              </form>
                               </td>
                           </tr>
                       @endforeach

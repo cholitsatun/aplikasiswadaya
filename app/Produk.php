@@ -14,10 +14,13 @@ class Produk extends Model
     public function Penjualan(){
         return $this->hasMany('App\Penjualan', 'id', 'id');
      }
-     public function InputProduk(){
-        return $this->hasMany('App\Produk', 'product_id', 'id');
-     }
-     public function BahanBaku(){
+
+   public function BahanBaku(){
       return $this->belongsToMany('App\BahanBaku', 'produk_bahan', 'product_id', 'bahan_id')->withPivot('jumlah_bahan');
-      }
+   }
+
+   public function InputProduk() {
+      return $this->hasMany('App\Produk', 'product_id', 'id');
+  }
+
 }   

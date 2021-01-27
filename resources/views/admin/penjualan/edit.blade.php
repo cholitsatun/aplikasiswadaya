@@ -14,21 +14,22 @@
         <div class="col-md-12">
           <div class="card">
             <div class="card-header card-header-primary">
-              <h4 class="card-title ">Tambah Transaksi Penjualan</h4>
+              <h4 class="card-title ">Edit Transaksi Penjualan</h4>
             </div>
             <div class="card-body">
                 <div class="row">
                 <div class="col-md-12">
-                <form action="{{route('admin.penjualan.store')}}" method="POST">
+                <form action="{{route('admin.penjualan.update', ['id' => $penjualan->id])}}" method="POST">
                 {{ csrf_field() }}
+                {{ method_field('PUT') }}
                       <div class="form-group">
                         <label>Tanggal</label>
-                        <input type="date" value="{{date("Y-m-d")}}" name="tanggal_beli">
+                        <input type="date" value="{{date("Y-m-d")}}" name="tanggal_beli" value="{{$penjualan->tanggal_beli}}">
             
                       </div>
                       <div class="form-group">
                         <label class="bmd-label-floating">Nama Pelanggan</label>
-                        <input type="text" class="form-control" name="nama_pembeli">
+                        <input type="text" class="form-control" name="nama_pembeli" value="{{$penjualan->nama_pembeli}}">
                       </div>
                       <div class="form-group">
                         <label for="product_id">Produk</label>
@@ -40,15 +41,15 @@
                       </div>
                       <div class="form-group">
                         <label class="bmd-label-floating">Jumlah</label>
-                        <input type="number"  class="form-control recalculate-jumlah" name="jumlah" >
+                        <input type="number"  class="form-control recalculate-jumlah" name="jumlah" value="{{$penjualan->barang_terjual}}" >
                       </div>
                       <div class="form-group">
                         <label class="bmd-label-floating">Keterangan</label>
-                        <input type="text" class="form-control" name="keterangan">
+                        <input type="text" class="form-control" name="keterangan" value="{{$penjualan->keterangan}}">
                       </div>
                       <div class="form-group">
                         <label class="bmd-label-floating">Total Harga</label>
-                        <input type="number" class="form-control total" name="total" readonly>
+                        <input type="number" class="form-control total" name="total" readonly value="{{$penjualan->total_harga}}">
                       </div>
                       <button type="submit" class="btn btn-primary pull-right">Simpan</button>
                 </form>

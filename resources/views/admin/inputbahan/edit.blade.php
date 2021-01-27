@@ -22,30 +22,30 @@
                       @endforeach
                     </select>
                   </div>     
-                  @if ($errors->has('bahanbaku_id'))
+                  {{-- @if ($errors->has('bahanbaku_id'))
                     <p class="text-danger">{{$errors->first('bahanbaku_id')}}</p>
-                  @endif 
+                  @endif  --}}
                   <div class="form-group">
                     <label class="bmd-label-floating">Supplier</label>
                     <input type="text" class="form-control" name="supplier" value="{{$inputbahan->supplier}}">
                   </div>                  
-                  @if ($errors->has('supplier'))
+                  {{-- @if ($errors->has('supplier'))
                     <p class="text-danger">{{$errors->first('supplier')}}</p>
-                  @endif                   
+                  @endif                    --}}
                   <div class="form-group">
                     <label class="bmd-label-floating">Jumlah</label>
-                    <input type="number" class="form-control" name="jumlah_inp" value="{{$inputbahan->jumlah_inb}}">
+                    <input type="number" class="form-control" name="jumlah_inb" value="{{$inputbahan->jumlah_inb}}">
                   </div>                  
-                  @if ($errors->has('jumlah_inb'))
+                  {{-- @if ($errors->has('jumlah_inb'))
                     <p class="text-danger">{{$errors->first('jumlah_inb')}}</p>
-                  @endif                      
+                  @endif                       --}}
                   <div class="form-group">
                     <label class="bmd-label-floating">Tanggal Masuk</label>
                     <input type="date" value="{{date("Y-m-d")}}" class="form-control" name="tanggal_inb" value="{{$inputbahan->tanggal_inb}}">
                   </div>                      
-                  @if ($errors->has('tanggal_inb'))
+                  {{-- @if ($errors->has('tanggal_inb'))
                     <p class="text-danger">{{$errors->first('tanggal_inb')}}</p>
-                  @endif                      
+                  @endif                       --}}
                   <input type="submit" class="btn btn-primary pull-right" value="Simpan">
                 </form>
                 </div>
