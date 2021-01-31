@@ -108,7 +108,7 @@ class InputBahanController extends Controller
         //BUAT QUERY KE DB MENGGUNAKAN WHEREBETWEEN DARI TANGGAL FILTER
         $bahan = InputBahan::whereBetween('created_at', [$start, $end])->get();
         //KEMUDIAN LOAD VIEW
-        return view('admin.laporan.laporan', compact('orders'));
+        return view('admin.laporan.laporan', compact('bahan'));
     }
 
 

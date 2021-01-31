@@ -5,8 +5,7 @@
     <div class="container-fluid">
       <div class="navbar-wrapper">
         <h2 class="navbar-brand">Laporan</h2>
-      </div>
-      
+      </div>      
     </div>
 </nav> 
 <div class="content">
@@ -55,9 +54,8 @@
         </div>
             </div>
                 </div>  
-//javascript
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+@endsection
+@section('customjs')
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <script>
