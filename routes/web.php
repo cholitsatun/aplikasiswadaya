@@ -41,8 +41,8 @@ Route::group(['middleware' => 'admin'], function(){
     Route::delete('/inputbahan/{id}', 'InputBahanController@destroy')->name('admin.inputbahan.destroy');
 
     //laporan
-    Route::get('/laporan', 'InputBahanController@pdf')->name('admin.laporan.pdf');
-    Route::get('/inputbahan/cetak_pdf', 'InputBahanController@cetak_pdf')->name('admin.inputbahan.cetak_pdf');
+    Route::get('/laporan', 'InputBahanController@cetak_pdf')->name('admin.laporan.pdf');
+    Route::get('/laporan/cetak_pdf/{daterange}', 'InputBahanController@ReportPdf')->name('admin.laporan.cetak_pdf');
 
     //penjualan
     Route::get('/penjualan', 'PenjualanController@index')->name('admin.penjualan.index');
