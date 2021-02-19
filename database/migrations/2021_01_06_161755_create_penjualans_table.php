@@ -17,8 +17,7 @@ class CreatePenjualansTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('nama_pembeli');
-            $table->integer('barang_terjual');
-            $table->text('keterangan');
+            $table->text('keterangan')->nullable();
             $table->integer('total_harga');
             $table->date('tanggal_beli');
  

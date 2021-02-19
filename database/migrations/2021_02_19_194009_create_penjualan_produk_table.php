@@ -16,6 +16,7 @@ class CreatePenjualanProdukTable extends Migration
         Schema::create('penjualan_produk', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
+            $table->integer('harga');
             $table->integer('jumlah');
 
             $table->unsignedBigInteger('penjualan_id');
