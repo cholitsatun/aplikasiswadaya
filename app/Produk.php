@@ -12,7 +12,7 @@ class Produk extends Model
     protected $fillable = ['nama_produk', 'stok_produk', 'harga', 'tanggal_jadi'];
 
     public function Penjualan(){
-        return $this->hasMany('App\Penjualan', 'id', 'id');
+      return $this->belongsToMany('App\Penjualan', 'penjualan_produk', 'product_id', 'penjualan_id');
      }
 
    public function BahanBaku(){
