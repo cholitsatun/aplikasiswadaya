@@ -11,6 +11,7 @@ class Penjualan extends Model
     protected $fillable = ['product_id', 'nama_pembeli', 'barang_terjual', 'keterangan', 'total_harga', 'tanggal_beli'];
 
     public function Produk() {
-        return $this->belongsTo('App\Produk', 'product_id', 'id');
+        return $this->belongsToMany('App\Produk', 'penjualan_produk', 'penjualan_id','product_id');
+
     }
 }

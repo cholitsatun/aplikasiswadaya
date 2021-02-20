@@ -84,13 +84,6 @@ class InputBahanController extends Controller
 
     public function cetak_pdf()
     {
-        // $inputbahan = InputBahan::all();
-        // // $bahanbaku = 
- 
-    	// $pdf = PDF::loadview('admin.laporan.laporan_pdf',['inputbahan'=>$inputbahan]);
-        // return $pdf->stream('laporan-bahanbaku-pdf');
-        
-
         //INISIASI 30 HARI RANGE SAAT INI JIKA HALAMAN PERTAMA KALI DI-LOAD
         //KITA GUNAKAN STARTOFMONTH UNTUK MENGAMBIL TANGGAL 1
         $start = Carbon::now()->startOfMonth()->format('Y-m-d H:i:s');
@@ -110,6 +103,21 @@ class InputBahanController extends Controller
         //KEMUDIAN LOAD VIEW
         return view('admin.laporan.laporan', compact('bahan'));
     }
+
+    public function ReportPdf($daterange)
+{
+    $date = explode('+', $daterange); //EXPLODE TANGGALNYA UNTUK MEMISAHKAN START & END
+    //DEFINISIKAN VARIABLENYA DENGAN FORMAT TIMESTAMPS
+    $start = Carbon::parse($date[0])->format('Y-m-d') . ' 00:00:01';
+    $end = Carbon::parse($date[1])->format('Y-m-d') . ' 23:59:59';
+
+    //KEMUDIAN BUAT QUERY BERDASARKAN RANGE CREATED_AT YANG TELAH DITETAPKAN RANGENYA DARI $START KE $END
+    $bahan = InputBahan::whereBetween('created_at', [$start, $end])->get();
+    //LOAD VIEW UNTUK PDFNYA DENGAN MENGIRIMKAN DATA DARI HASIL QUERY
+    $pdf = PDF::loadView('admin.laporan.laporan_pdf', compact('bahan', 'date'));
+    //GENERATE PDF-NYA
+    return $pdf->stream();
+}
 
 
     

@@ -42,37 +42,37 @@
           </li>
           <li class="nav-item {{ request()->routeIs('admin.bahanbaku*') ? 'active' : '' }}">
             <a class="nav-link" href="/bahanbaku">
-              <i class="material-icons">person</i>
+              <i class="material-icons">dashboard</i>
               <p>Stok Bahan Baku</p>
             </a>
           </li>
           <li class="nav-item {{ request()->routeIs('admin.produk*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.produk.index') }}">
-              <i class="material-icons">person</i>
+              <i class="material-icons">dashboard</i>
               <p>Stok Produk</p>
             </a>
           </li>
           <li class="nav-item {{ request()->routeIs('admin.inputbahan*') ? 'active' : '' }}">
             <a class="nav-link" href="/inputbahan">
-              <i class="material-icons">person</i>
+              <i class="material-icons">dashboard</i>
               <p>Input Bahan Baku</p>
             </a>
           </li>
           <li class="nav-item {{ request()->routeIs('admin.input_produk*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.input_produk.index') }}">
-              <i class="material-icons">person</i>
+              <i class="material-icons">dashboard</i>
               <p>Input Produk</p>
             </a>
           </li>
           <li class="nav-item {{ request()->routeIs('admin.penjualan*') ? 'active' : '' }}">
             <a class="nav-link" href="/penjualan">
-              <i class="material-icons">person</i>
+              <i class="material-icons">dashboard</i>
               <p>Penjualan</p>
             </a>
           </li>
           <li class="nav-item {{ request()->routeIs('admin.laporan.pdf') ? 'active' : '' }}">
             <a class="nav-link" href="/laporan">
-              <i class="material-icons">person</i>
+              <i class="material-icons">dashboard</i>
               <p>Laporan</p>
             </a>
           </li>
