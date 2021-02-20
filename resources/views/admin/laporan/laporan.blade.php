@@ -94,9 +94,6 @@
                     </table>
                 </div>
             </div>
-<<<<<<< HEAD
-                </div>  
-=======
             <div class="card" style="padding-left: 50px; padding-bottom: 30px;">
                 <br/>
                 <h5>Laporan Penjualan Berdasar Tanggal</h5> <br/>
@@ -146,7 +143,6 @@
         </div>
     </div>
 </div>
->>>>>>> master
 @endsection
 @section('customjs')
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
