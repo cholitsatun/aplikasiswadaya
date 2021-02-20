@@ -38,7 +38,7 @@
                               <td>{{$item->tanggal_inp}}</td>                              
                               <td>{{$item->Produk->nama_produk}}</td>                              
                               <td>{{$item->jumlah_inp}}</td>                              
-                              <td>
+                              <td>                                                                
                                 <a href="{{route('admin.input_produk.edit', ['id' => $item->id]) }}">
                                   <button type="submit" class="btn btn-primary btn-link btn-sm">
                                     <i class="material-icons">edit</i>
@@ -46,12 +46,11 @@
                                 </a>
                                 <form action="{{route('admin.input_produk.destroy', ['id' => $item->id]) }}" method="POST" style="display:inline">
                                     {{ csrf_field() }}
-                                    {{ method_field('DELETE') }}
-                                    <a href="javascript:;" onclick="parentNode.submit();">                                      
-                                      <button type="submit" class="btn btn-danger btn-link btn-sm">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                      </button>
-                                    </a>
+                                    {{ method_field('DELETE') }}                            
+                                    {{-- <a href="javascript:;" onclick="parentNode.submit();">         --}}
+                                    <button type="button" id="hapus-{{$item->id}}" class="btn btn-danger btn-link btn-sm" onclick="hapus('hapus-{{$item->id}}')">
+                                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </button>                                  
                                 </form>
                               </td>
                           </tr>
@@ -65,8 +64,9 @@
       </div>
     </div>
   </div>
+@endsection
 
-  <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+@section('customjs')
   <script type="text/javascript" src=https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js></script>
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
   <script type="text/javascript">
@@ -74,4 +74,27 @@
         $('#example').DataTable();
     } );
   </script>
+  <script>
+    function hapus(id) {
+      Swal.fire({
+        title: 'Apakah kamu yakin?',
+        // text: "Data tidak bisa dikembalikan setelah terhapus!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Iya',
+        cancelButtonText: 'Tidak'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          document.getElementById(id).parentNode.submit();          
+          Swal.fire(
+            'Terhapus!',
+            'Data telah terhapus',
+            'success'
+          )
+        }
+      })      
+    }
+  </script>    
 @endsection

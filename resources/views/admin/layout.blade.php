@@ -14,8 +14,9 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
-
   <link href="/material/assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+  {{-- sweet alert 2 --}}
+  <link rel="stylesheet" href="/sweetalert2/sweetalert2.min.css">
 
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/material/assets/demo/demo.css" rel="stylesheet" />
@@ -123,6 +124,8 @@
 <script src="/material/assets/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="/material/assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
+{{-- sweetalert2 --}}
+<script src="/sweetalert2/sweetalert2.all.min.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="/material/assets/demo/demo.js"></script>
 <script>
