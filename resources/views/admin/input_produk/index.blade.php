@@ -87,12 +87,7 @@
         cancelButtonText: 'Tidak'
       }).then((result) => {
         if (result.isConfirmed) {
-          document.getElementById(id).parentNode.submit();          
-          Swal.fire(
-            'Terhapus!',
-            'Data telah terhapus',
-            'success'
-          )
+          document.getElementById(id).parentNode.submit();                      
         }
       })      
     }

@@ -47,11 +47,9 @@
                                 <form action="/inputbahan/{{$item->id}}" method="POST" style="display:inline">
                                     {{ csrf_field() }}
                                     {{ method_field('DELETE') }}
-                                    <a href="javascript:;" onclick="parentNode.submit();">                                      
-                                      <button type="submit" class="btn btn-danger btn-link btn-sm">
-                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
-                                      </button>
-                                    </a>
+                                    <button type="button" id="hapus-{{$item->id}}" class="btn btn-danger btn-link btn-sm" onclick="hapus('hapus-{{$item->id}}')">
+                                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </button>                                  
                                 </form>
                               </td>
                           </tr>
@@ -74,4 +72,25 @@
         $('#input').DataTable();
     } );
   </script>
+@endsection
+
+@section('customjs')
+<script>
+  function hapus(id) {
+    Swal.fire({
+      title: 'Apakah kamu yakin?',
+      // text: "Data tidak bisa dikembalikan setelah terhapus!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Iya',
+      cancelButtonText: 'Tidak'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        document.getElementById(id).parentNode.submit();                  
+      }
+    })      
+  }
+</script>        
 @endsection

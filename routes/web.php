@@ -19,6 +19,7 @@ Route::get('/login', 'LoginController@index')->middleware('guest');
 Route::post('/login', 'LoginController@post');
 
 Route::group(['middleware' => 'admin'], function(){
+    Route::get('/dashboard/1', 'DashboardController@cek')->name('admin.dashboard.cek');
     Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard.index');
     Route::get('/bahanbaku', 'BahanBakuController@index')->name('admin.bahanbaku.index');
     Route::get('/inputbahan', 'InputBahanController@index')->name('admin.inputbahan.index');
