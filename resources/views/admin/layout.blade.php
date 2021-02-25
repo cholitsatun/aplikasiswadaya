@@ -20,6 +20,7 @@
 
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/material/assets/demo/demo.css" rel="stylesheet" />
+  @yield('customcss')
 </head>
 
 <body class="">

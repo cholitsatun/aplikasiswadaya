@@ -18,7 +18,7 @@
                     <label for="bahanbaku_id">Bahan Baku</label>
                     <select class="form-control selectpicker" name="bahanbaku_id" data-style="btn btn-link" id="bahanbaku_id">
                       @foreach ($bahanbaku as $item)                              
-                        <option value={{$item->id}} {{ $item->id == $inputbahan->bahanbaku_id ? 'selected' : '' }}> {{$item->nama_bahan}}</option>                          
+                        <option value={{$item->id}} {{ $item->id == $inputbahan->bahanbaku_id ? 'selected' : '' }}> {{$item->nama_bahan}} {{$item->kategori == 1 ? '(Bahan Lain)' : ''}}</option>                          
                       @endforeach
                     </select>
                   </div>     

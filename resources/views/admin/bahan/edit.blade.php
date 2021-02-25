@@ -28,7 +28,10 @@
                       </div>
                       <div class="form-group">
                         <label class="bmd-label-floating">Kategori</label>
-                        <input type="number" class="form-control" name="kategori" value="{{$bahan->kategori}}">
+                        <select class="form-control selectpicker" name="kategori" data-style="btn btn-link" id="kategori">                          
+                          <option value=0 {{ $bahan->kategori == 0 ? 'selected' : '' }}>Bahan Dasar</option>                                                    
+                          <option value=1 {{ $bahan->kategori == 1 ? 'selected' : '' }}>Bahan Lain</option>                                         
+                        </select>                                                           
                       </div>
                       <button type="submit" class="btn btn-primary pull-right">Simpan</button>
                 </form>

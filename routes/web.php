@@ -21,10 +21,12 @@ Route::post('/login', 'LoginController@post');
 Route::group(['middleware' => 'admin'], function(){
     Route::get('/dashboard/1', 'DashboardController@cek')->name('admin.dashboard.cek');
     Route::get('/dashboard', 'DashboardController@index')->name('admin.dashboard.index');
-    Route::get('/bahanbaku', 'BahanBakuController@index')->name('admin.bahanbaku.index');
     Route::get('/inputbahan', 'InputBahanController@index')->name('admin.inputbahan.index');
-
+    
     //bahan baku
+    Route::get('/bahanbaku', 'BahanBakuController@index')->name('admin.bahanbaku.index');
+    Route::get('/bahanbaku/bahandasar', 'BahanBakuController@index_bahan_dasar')->name('admin.bahanbaku.index_bahan_dasar');
+    Route::get('/bahanbaku/bahanlain', 'BahanBakuController@index_bahan_lain')->name('admin.bahanbaku.index_bahan_lain');
     Route::get('/bahanbaku/tambah', 'BahanBakuController@create');
     Route::post('/bahanbaku', 'BahanBakuController@store');
 
