@@ -24,10 +24,9 @@ class PenjualanController extends Controller
             'stok_produk' => $produk->stok_produk - $request->jumlah
         ]);
         Penjualan::create([
-            'product_id' => request('product_id'),
+            'product_id' => request('addmore.*.product_id'),
             'tanggal_beli' => request('tanggal_beli'),
             'nama_pembeli' => request('nama_pembeli'),
-            'barang_terjual' => request('jumlah'),
             'keterangan' => request('keterangan'),
             'total_harga' => request('total'),
         ]);
@@ -44,14 +43,13 @@ class PenjualanController extends Controller
         $produk = Produk::find($request->product_id);
         $penjualan = Penjualan::find($id);    
         $produk->update([
-            'stok_produk' => $produk->stok_produk + $penjualan->barang_terjual - $request->jumlah          
+            'stok_produk' => $produk->stok_produk + $penjualan->jumlah - $request->jumlah          
         ]);
 
         $penjualan->update([
             'product_id' => request('product_id'),
             'tanggal_beli' => request('tanggal_beli'),
             'nama_pembeli' => request('nama_pembeli'),
-            'barang_terjual' => request('jumlah'),
             'keterangan' => request('keterangan'),
             'total_harga' => request('total'), 
         ]);
@@ -65,7 +63,7 @@ class PenjualanController extends Controller
         // undo bahan baku dan stok otomatis
         $produk = Produk::find($penjualan->product_id);
         $produk->update([                    
-            'stok_produk' => $produk->stok_produk + $penjualan->barang_terjual
+            'stok_produk' => $produk->stok_produk + $penjualan->jumlah
         ]);
         // hapus input produk
         $penjualan->delete();
@@ -108,4 +106,23 @@ class PenjualanController extends Controller
         //GENERATE PDF-NYA
         return $pdf->stream();
     }
+
+    // public function addMore()
+    // {
+
+    //     return view("addMore");
+    // }
+
+    // public function addMorePost(Request $request)
+    // {
+    //     $request->validate([
+    //         'addmore.*.name' => 'required',
+    //         'addmore.*.qty' => 'required',
+    //         'addmore.*.price' => 'required',
+    //     ]);
+    //     foreach ($request->addmore as $key => $value) {
+    //         Penjualan::create($value);
+    //     }
+    //     return back()->with('success', 'Record Created Successfully.');
+    // }
 }

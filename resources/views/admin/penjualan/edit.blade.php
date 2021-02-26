@@ -40,10 +40,6 @@
                         </select>
                       </div>
                       <div class="form-group">
-                        <label class="bmd-label-floating">Jumlah</label>
-                        <input type="number"  class="form-control recalculate-jumlah" name="jumlah" value="{{$penjualan->barang_terjual}}" >
-                      </div>
-                      <div class="form-group">
                         <label class="bmd-label-floating">Keterangan</label>
                         <input type="text" class="form-control" name="keterangan" value="{{$penjualan->keterangan}}">
                       </div>

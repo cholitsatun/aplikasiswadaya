@@ -37,9 +37,9 @@ class DashboardController extends Controller
         // dapatkan bahan baku yang masuk
         $bahan_masuk = InputBahan::whereDate('tanggal_inb', Carbon::today())->sum('jumlah_inb');
 
-        // penjualan        
-        $penjualan = Penjualan::whereDate('tanggal_beli', Carbon::today())->sum('barang_terjual');
+        // // penjualan        
+        // $penjualan = Penjualan::whereDate('tanggal_beli', Carbon::today())->sum('barang_terjual');
 
-        return view('admin.dashboard', compact('produksi_produk', 'bahan_terpakai', 'bahan_masuk', 'penjualan'));
+        return view('admin.dashboard', compact('produksi_produk', 'bahan_terpakai', 'bahan_masuk'));
     }
 }

@@ -25,8 +25,7 @@
                     <tr>
                         <th>No</th>
                         <th>Nama Produk</th>
-                        <th>Stok</th>
-                        <th>Harga</th>                        
+                        <th>Stok</th>                      
                     </tr>
                   </thead>
                   <tbody>
@@ -35,7 +34,6 @@
                               <td>{{$nomor+1}}</td>
                               <td>{{$item->nama_produk}}</td>                              
                               <td>{{$item->stok_produk}}</td>
-                              <td>{{$item->harga}}</td>                              
                           </tr>
                       @endforeach
                   </tbody>
