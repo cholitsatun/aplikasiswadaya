@@ -57,7 +57,7 @@ class DashboardController extends Controller
                 $bahans = $produk->BahanBaku()->get();                                            
                 // untuk setiap bahan baku yang terpakai, tambahkan ke bahan terpakai                
                 foreach ($bahans as $bahan){                                                    
-                    $total_bahan_terpakai += $bahan->pivot->jumlah_bahan/2;
+                    $total_bahan_terpakai += $bahan->pivot->jumlah_bahan;
                 }            
             }
         }        
@@ -77,13 +77,13 @@ class DashboardController extends Controller
             // untuk setiap bahan baku yang terpakai, tambahkan ke bahan terpakai
             foreach ($bahans as $bahan){                               
                 if (array_key_exists($bahan->nama_bahan, $bahans_terpakai)) {
-                    $bahans_terpakai[$bahan->nama_bahan]['jumlah'] += $bahan->pivot->jumlah_bahan * $jumlah_produk/2;
+                    $bahans_terpakai[$bahan->nama_bahan]['jumlah'] += $bahan->pivot->jumlah_bahan * $jumlah_produk;
                 }
                 else {                    
                     $bahans_terpakai[$bahan->nama_bahan] =  [
                         'no' => $i+1,
                         'nama_bahan' => $bahan->nama_bahan, 
-                        'jumlah' => $bahan->pivot->jumlah_bahan * $jumlah_produk/2,
+                        'jumlah' => $bahan->pivot->jumlah_bahan * $jumlah_produk,
                     ];
                     $i++;
                 }
@@ -109,7 +109,7 @@ class DashboardController extends Controller
 
 
         // penjualan        
-        $penjualan = Penjualan::whereDate('tanggal_beli', Carbon::today())->sum('barang_terjual');
+        $penjualan = Penjualan::whereDate('tanggal_beli', Carbon::today())->sum('product_id');
 
 
         return view('admin.dashboard', compact(

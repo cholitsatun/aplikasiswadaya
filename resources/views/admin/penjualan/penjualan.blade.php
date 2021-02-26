@@ -28,7 +28,6 @@
                         <th>Tanggal</th>
                         <th>Nama Pelanggan</th>
                         <th>Produk</th>
-                        <th>Jumlah</th>
                         <th>Keterangan</th>
                         <th>Total Harga</th>
                         <th>Setting</th>
@@ -41,7 +40,6 @@
                               <td>{{$item->tanggal_beli}}</td>
                               <td>{{$item->nama_pembeli}}</td>
                               <td>{{$item->produk->nama_produk}}</td>
-                              <td>{{$item->barang_terjual}}</td>
                               <td>{{$item->keterangan}}</td>
                               <td>{{$item->total_harga}}</td>
                               <td>

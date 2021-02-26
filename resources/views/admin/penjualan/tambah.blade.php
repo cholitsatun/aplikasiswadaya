@@ -1,6 +1,11 @@
 @extends('admin.layout')
 @section('content')
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<style>
+  option[value=""][disabled] {
+        display: none;
+      }
+</style>
 <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
     <div class="container-fluid">
       <div class="navbar-wrapper">
@@ -33,17 +38,18 @@
                       </div>
                       <div class="form-group"> 
                         <label for="product_id">Produk</label>
-                        <table class="table-common" id="dynamicTable">
+                        <table class="table-responsive" id="dynamicTable">
                           <tr>
-                            <td width="40%">
-                              <select class="form-control selectpicker recalculate-produk" name="addmore[0][product_id]" data-style="btn btn-link" id="product_id">
+                            <td>
+                              <select name="addmore[0][product_id]" data-style="btn btn-link" id="product_id">
+                                <option value="" selected="true" disabled="true" hidden="true">--Pilih Produk--</option>
                                 @foreach ($produk as $item)
                                     <option value="{{$item->id}}"> {{$item->nama_produk}} </option>
                                 @endforeach
                             </select>
                             </td>
-                            <td><input type="number" class="form-control" name="addmore[0][harga]" placeholder="Harga"></td>
-                            <td><input type="number" class="form-control" name="addmore[0][jumlah]" placeholder="Jumlah"></td>
+                            <td><input type="number" class="calculate-harga" name="addmore[0][harga]" placeholder="Harga"></td>
+                            <td><input type="number" class="calculate-jumlah" name="addmore[0][jumlah]" placeholder="Jumlah"></td>
                             <td>&nbsp;<button type="button" id="add"><i class="fa fa-plus"></i></button></td>
                           </tr>
                         </table>
@@ -55,17 +61,13 @@
                         <input type="number" class="form-control" name="harga" value="harga" >
                         <input type="number"  class="form-control recalculate-jumlah" name="jumlah" value="jumlah"> --}}
                       </div>
-                      {{-- <div class="form-group">
-                        <label class="bmd-label-floating">Jumlah</label>
-                        <input type="number"  class="form-control recalculate-jumlah" name="jumlah" >
-                      </div> --}}
                       <div class="form-group">
                         <label class="bmd-label-floating">Keterangan</label>
                         <input type="text" class="form-control" name="keterangan">
                       </div>
                       <div class="form-group">
                         <label class="bmd-label-floating">Total Harga</label>
-                        <input type="number" class="form-control total" name="total" readonly>
+                        <input type="number" id="total" class="form-control total" name="total" readonly>
                       </div>
                       <button type="submit" class="btn btn-primary pull-right">Simpan</button>
                 </form>
@@ -79,39 +81,77 @@
     </div>
 </div>   
 <script>
-  let option = ""
-  @foreach ($produk as $item)     
-    option += '<option value='+ '"' + {{$item->id}} + '"' + '>' + '{{$item->nama_produk}}' +'</option>'        
-  @endforeach
-  console.log(option);
-  // var myOptions = '@foreach ($produk as $item) <option value="{{$item->id}}"> {{$item->nama_produk}} </option> @endforeach';
+  var myOptions = '@foreach ($produk as $item) <option value="{{$item->id}}"> {{$item->nama_produk}} </option> @endforeach';
   var i = 0;
   $("#add").click(function(){
       ++i;
-      $("#dynamicTable").append('<tr><td width="40%"><select class="form-control selectpicker recalculate-produk" name="addmore['+i+'][product_id]" data-style="btn btn-link" id="product_id">' + option + '</select></td><td><input type="number" class="form-control" name="addmore['+1+'][harga]" placeholder="Harga"></td><td><input type="number" class="form-control" name="addmore['+i+'][jumlah]" placeholder="Jumlah"></td> <td>&nbsp;<button type="button" class="remove-tr"><i class="fa fa-trash"></button></td></tr>');
+      $("#dynamicTable").append('<tr><td><select name="addmore['+i+'][product_id]" data-style="btn btn-link" id="product_id"><option value="" selected="true" disabled="true" hidden="true">--Pilih Produk--</option>' + myOptions + '</select></td><td><input type="number" name="addmore['+1+'][harga]" placeholder="Harga"></td><td><input type="number" name="addmore['+i+'][jumlah]" placeholder="Jumlah"></td> <td>&nbsp;<button type="button" class="remove-tr"><i class="fa fa-trash"></button></td></tr>');
       
-      //   //instantiate the new select as select2
-      // $('select.select-new-' + x).select2();
   });
   $(document).on('click', '.remove-tr', function(){  
       $(this).parents('tr').remove();
   });  
 
-  // function recalculatePrice(params) {
-  //   var produk = document.querySelector('#product_id').value;
-  //   var jumlah = parseInt(document.querySelector('.recalculate-jumlah').value);
-  //   var hargaproduk = parseInt(document.querySelector('option[value="'+ produk + '"]').dataset.price);
-  //   var input_total = document.querySelector('.total')
+  function getHarga() {
+  const listTagTR = document.querySelectorAll('tr')
+  const listInputJumlah = document.querySelectorAll('.calculate-jumlah')
+  const listInputHarga = document.querySelectorAll('.calculate-harga')
+
+  let dataTotal = 0
+  for (let index = 0; index < listTagTR.length; index++) {
+    const harga = listInputHarga[index].value
+    const jumlah = listInputJumlah[index].value
+
+    if (!isNaN(harga) && !isNaN(jumlah)) {
+      dataTotal += harga * jumlah
+    }
+  }
+
+  document.querySelectorAll('#total').value = dataTotal
+}
+
+document.querySelectorAll('.calculate-jumlah').forEach((element) => {
+  element.addEventListener('input', getHarga())
+})
+
+document.querySelectorAll('.calculate-harga').forEach((element) => {
+  element.addEventListener('change', getHarga())
+})
+
+  // function total()
+  // {
+  //   var sum = 0;
+  //   $('#dynamicTable').each(function() {
+  //     var jumlah = parseInt(document.querySelector('.calculate-jumlah').value);
+  //     var hargaproduk = parseInt(document.querySelector('.calculate-harga').value);
+  //     var subtotal = (jumlah*hargaproduk)
+  //     sum+=subtotal;
+  //     // $(this).find('.amount').text(''+amount);
+  //   });
+  //   $('#total').text(sum);
+  // }
+  // document.querySelector('.calculate-harga').addEventListener('change', function (params) {
+  //   total()
+  // })
+  // document.querySelector('.calculate-jumlah').addEventListener('input', function (params) {
+  //   total()
+  // })
+
+  // function subtotal(params) {
+  //   var jumlah = parseInt(document.querySelector('.calculate-jumlah').value);
+  //   var hargaproduk = parseInt(document.querySelector('.calculate-harga').value);
+  //   // var input_total = document.querySelector('.total')
 
   //   if (!isNaN(jumlah)&& !isNaN(hargaproduk)) {
   //     let total = jumlah * hargaproduk
-  //       input_total.value = total
+  //       // input_total.value = total
   //   }
   //   else {
   //     input_total.value = ''
   //   }
 
   // }
+
 
   // document.querySelector('#product_id').addEventListener('change', function (params) {
   //   recalculatePrice()
