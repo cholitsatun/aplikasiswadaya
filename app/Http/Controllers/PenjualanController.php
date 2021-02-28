@@ -19,17 +19,29 @@ class PenjualanController extends Controller
     }
 
     public function store(Request $request){
-        $produk = Produk::find($request->product_id);
-        $produk->update([
-            'stok_produk' => $produk->stok_produk - $request->jumlah
-        ]);
-        Penjualan::create([
-            'product_id' => request('addmore.*.product_id'),
-            'tanggal_beli' => request('tanggal_beli'),
-            'nama_pembeli' => request('nama_pembeli'),
-            'keterangan' => request('keterangan'),
-            'total_harga' => request('total'),
-        ]);
+        $produk = Produk::find($request->addmore);
+        // $produk->update([
+        //     'stok_produk' => $produk->stok_produk - $request->jumlah
+        // ]);
+        $penjualan = Penjualan::findorNew($request->id);
+        $penjualan->tanggal_beli=$request->tanggal_beli;
+        $penjualan->nama_pembeli=$request->nama_pembeli;
+        $penjualan->keterangan=$request->keterangan;
+        $penjualan->total_harga=$request->total;
+        if ($penjualan->save()) {
+            foreach($request->addmore as $key => $value) {
+                Penjualan::create($value);
+            }
+        }
+        // Penjualan::create([
+        //     'tanggal_beli' => request('tanggal_beli'),
+        //     'nama_pembeli' => request('nama_pembeli'),
+        //     'keterangan' => request('keterangan'),
+        //     'total_harga' => request('total'),
+        // ]);
+        // foreach ($request->addmore as $key => $value) {
+        //     Penjualan::create($value);
+        // }
         return redirect()->route('admin.penjualan.index');
     }
 
