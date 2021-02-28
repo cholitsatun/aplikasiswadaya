@@ -38,8 +38,12 @@
                           <tr>
                               <td>{{$nomor+1}}</td>
                               <td>{{$item->tanggal_beli}}</td>
-                              <td>{{$item->nama_pembeli}}</td>
-                              <td>{{$item->produk->nama_produk}}</td>
+                              <td>{{$item->nama_pembeli}}</td>                              
+                              <td>
+                                @foreach ($item->Produk as $produk)
+                                    - {{$produk->nama_produk}} | Rp.{{$produk->pivot->harga}} | @.{{$produk->pivot->jumlah}} <br>
+                                @endforeach
+                              </td>
                               <td>{{$item->keterangan}}</td>
                               <td>{{$item->total_harga}}</td>
                               <td>

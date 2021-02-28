@@ -29,7 +29,7 @@
                 {{ csrf_field() }}
                       <div class="form-group">
                         <label>Tanggal</label>
-                        <input type="date" value="{{date("Y-m-d")}}" name="tanggal_beli">
+                        <input type="date" class="form-control" value="{{date("Y-m-d")}}" name="tanggal_beli">
             
                       </div>
                       <div class="form-group">
@@ -53,13 +53,7 @@
                             <td>&nbsp;<button type="button" id="add"><i class="fa fa-plus"></i></button></td>
                           </tr>
                         </table>
-                        {{-- <select class="form-control selectpicker recalculate-produk" name="product_id" data-style="btn btn-link" id="product_id">
-                            @foreach ($produk as $item)
-                                <option data-price="{{$item->harga}}" value="{{$item->id}}"> {{$item->nama_produk}} </option>
-                            @endforeach
-                        </select>
-                        <input type="number" class="form-control" name="harga" value="harga" >
-                        <input type="number"  class="form-control recalculate-jumlah" name="jumlah" value="jumlah"> --}}
+
                       </div>
                       <div class="form-group">
                         <label class="bmd-label-floating">Keterangan</label>
@@ -85,79 +79,38 @@
   var i = 0;
   $("#add").click(function(){
       ++i;
-      $("#dynamicTable").append('<tr><td><select name="addmore['+i+'][product_id]" data-style="btn btn-link" id="product_id"><option value="" selected="true" disabled="true" hidden="true">--Pilih Produk--</option>' + myOptions + '</select></td><td><input type="number" name="addmore['+1+'][harga]" placeholder="Harga"></td><td><input type="number" name="addmore['+i+'][jumlah]" placeholder="Jumlah"></td> <td>&nbsp;<button type="button" class="remove-tr"><i class="fa fa-trash"></button></td></tr>');
+      $("#dynamicTable").append('<tr><td><select name="addmore['+i+'][product_id]" data-style="btn btn-link" id="product_id"><option value="" selected="true" disabled="true" hidden="true">--Pilih Produk--</option>' + myOptions + '</select></td><td><input type="number" class="calculate-harga" name="addmore['+1+'][harga]" placeholder="Harga"></td><td><input type="number" class="calculate-jumlah" name="addmore['+i+'][jumlah]" placeholder="Jumlah"></td> <td>&nbsp;<button type="button" class="remove-tr"><i class="fa fa-trash"></button></td></tr>');
       
+      document.querySelectorAll('.calculate-jumlah').forEach((element) => {
+        element.addEventListener('input', getHarga)
+      })
+      document.querySelectorAll('.calculate-harga').forEach((element) => {
+        element.addEventListener('input', getHarga)
+      })
   });
   $(document).on('click', '.remove-tr', function(){  
       $(this).parents('tr').remove();
   });  
-
   function getHarga() {
-  const listTagTR = document.querySelectorAll('tr')
-  const listInputJumlah = document.querySelectorAll('.calculate-jumlah')
-  const listInputHarga = document.querySelectorAll('.calculate-harga')
-
-  let dataTotal = 0
-  for (let index = 0; index < listTagTR.length; index++) {
-    const harga = listInputHarga[index].value
-    const jumlah = listInputJumlah[index].value
-
-    if (!isNaN(harga) && !isNaN(jumlah)) {
-      dataTotal += harga * jumlah
+    const listTagTR = document.querySelectorAll('tr')
+    const listInputJumlah = document.querySelectorAll('.calculate-jumlah')
+    const listInputHarga = document.querySelectorAll('.calculate-harga')
+    let dataTotal = 0
+    for (let index = 0; index < listTagTR.length; index++) {
+      const harga = listInputHarga[index].value
+      const jumlah = listInputJumlah[index].value
+      if (!isNaN(harga) && !isNaN(jumlah)) {
+        dataTotal += harga * jumlah
+      }
+      
     }
+    document.querySelector('#total').value = dataTotal
   }
-
-  document.querySelectorAll('#total').value = dataTotal
-}
-
 document.querySelectorAll('.calculate-jumlah').forEach((element) => {
-  element.addEventListener('input', getHarga())
+  element.addEventListener('input', getHarga)
 })
-
 document.querySelectorAll('.calculate-harga').forEach((element) => {
-  element.addEventListener('change', getHarga())
+  element.addEventListener('input', getHarga)
 })
-
-  // function total()
-  // {
-  //   var sum = 0;
-  //   $('#dynamicTable').each(function() {
-  //     var jumlah = parseInt(document.querySelector('.calculate-jumlah').value);
-  //     var hargaproduk = parseInt(document.querySelector('.calculate-harga').value);
-  //     var subtotal = (jumlah*hargaproduk)
-  //     sum+=subtotal;
-  //     // $(this).find('.amount').text(''+amount);
-  //   });
-  //   $('#total').text(sum);
-  // }
-  // document.querySelector('.calculate-harga').addEventListener('change', function (params) {
-  //   total()
-  // })
-  // document.querySelector('.calculate-jumlah').addEventListener('input', function (params) {
-  //   total()
-  // })
-
-  // function subtotal(params) {
-  //   var jumlah = parseInt(document.querySelector('.calculate-jumlah').value);
-  //   var hargaproduk = parseInt(document.querySelector('.calculate-harga').value);
-  //   // var input_total = document.querySelector('.total')
-
-  //   if (!isNaN(jumlah)&& !isNaN(hargaproduk)) {
-  //     let total = jumlah * hargaproduk
-  //       // input_total.value = total
-  //   }
-  //   else {
-  //     input_total.value = ''
-  //   }
-
-  // }
-
-
-  // document.querySelector('#product_id').addEventListener('change', function (params) {
-  //   recalculatePrice()
-  // })
-  // document.querySelector('.recalculate-jumlah').addEventListener('input', function (params) {
-  //   recalculatePrice()
-  // })
 </script>
 @endsection

@@ -19,17 +19,29 @@ class PenjualanController extends Controller
     }
 
     public function store(Request $request){
-        $produk = Produk::find($request->product_id);
-        $produk->update([
-            'stok_produk' => $produk->stok_produk - $request->jumlah
-        ]);
-        Penjualan::create([
-            'product_id' => request('addmore.*.product_id'),
+        
+        $penjualan = Penjualan::create([
             'tanggal_beli' => request('tanggal_beli'),
             'nama_pembeli' => request('nama_pembeli'),
             'keterangan' => request('keterangan'),
             'total_harga' => request('total'),
-        ]);
+            ]);
+            
+        foreach ($request->addmore as $key => $value) {
+            // masukin ke tabel penghubung
+            $penjualan->Produk()->attach($value['product_id'],[
+                'harga' => $value['harga'],
+                'jumlah' => $value['jumlah'],
+            ]);                    
+
+            // kurangin produk
+            $produk = Produk::findOrFail($value['product_id']);
+            $new_stok_produk = $produk->stok_produk - $value['jumlah'];            
+            $produk->update([
+                'stok_produk' => $new_stok_produk,
+            ]);
+        }    
+
         return redirect()->route('admin.penjualan.index');
     }
 
@@ -106,23 +118,4 @@ class PenjualanController extends Controller
         //GENERATE PDF-NYA
         return $pdf->stream();
     }
-
-    // public function addMore()
-    // {
-
-    //     return view("addMore");
-    // }
-
-    // public function addMorePost(Request $request)
-    // {
-    //     $request->validate([
-    //         'addmore.*.name' => 'required',
-    //         'addmore.*.qty' => 'required',
-    //         'addmore.*.price' => 'required',
-    //     ]);
-    //     foreach ($request->addmore as $key => $value) {
-    //         Penjualan::create($value);
-    //     }
-    //     return back()->with('success', 'Record Created Successfully.');
-    // }
 }
