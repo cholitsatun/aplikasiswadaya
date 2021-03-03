@@ -91,7 +91,6 @@
   $(document).on('click', '.remove-tr', function(){  
       $(this).parents('tr').remove();
   });  
-
   function getHarga() {
     const listTagTR = document.querySelectorAll('tr')
     const listInputJumlah = document.querySelectorAll('.calculate-jumlah')
@@ -114,52 +113,9 @@
 document.querySelectorAll('.calculate-jumlah').forEach((element) => {
   element.addEventListener('input', getHarga)
 })
-
 document.querySelectorAll('.calculate-harga').forEach((element) => {
   element.addEventListener('input', getHarga)
 })
 
-
-  // function total()
-  // {
-  //   var sum = 0;
-  //   $('#dynamicTable').each(function() {
-  //     var jumlah = parseInt(document.querySelector('.calculate-jumlah').value);
-  //     var hargaproduk = parseInt(document.querySelector('.calculate-harga').value);
-  //     var subtotal = (jumlah*hargaproduk)
-  //     sum+=subtotal;
-  //     // $(this).find('.amount').text(''+amount);
-  //   });
-  //   $('#total').text(sum);
-  // }
-  // document.querySelector('.calculate-harga').addEventListener('change', function (params) {
-  //   total()
-  // })
-  // document.querySelector('.calculate-jumlah').addEventListener('input', function (params) {
-  //   total()
-  // })
-
-  // function subtotal(params) {
-  //   var jumlah = parseInt(document.querySelector('.calculate-jumlah').value);
-  //   var hargaproduk = parseInt(document.querySelector('.calculate-harga').value);
-  //   // var input_total = document.querySelector('.total')
-
-  //   if (!isNaN(jumlah)&& !isNaN(hargaproduk)) {
-  //     let total = jumlah * hargaproduk
-  //       // input_total.value = total
-  //   }
-  //   else {
-  //     input_total.value = ''
-  //   }
-
-  // }
-
-
-  // document.querySelector('#product_id').addEventListener('change', function (params) {
-  //   recalculatePrice()
-  // })
-  // document.querySelector('.recalculate-jumlah').addEventListener('input', function (params) {
-  //   recalculatePrice()
-  // })
 </script>
 @endsection

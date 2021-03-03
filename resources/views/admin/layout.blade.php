@@ -14,11 +14,13 @@
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
   <!-- CSS Files -->
-
   <link href="/material/assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+  {{-- sweet alert 2 --}}
+  <link rel="stylesheet" href="/sweetalert2/sweetalert2.min.css">
 
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/material/assets/demo/demo.css" rel="stylesheet" />
+  @yield('customcss')
 </head>
 
 <body class="">
@@ -42,39 +44,48 @@
           </li>
           <li class="nav-item {{ request()->routeIs('admin.bahanbaku*') ? 'active' : '' }}">
             <a class="nav-link" href="/bahanbaku">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">folder</i>
               <p>Stok Bahan Baku</p>
             </a>
           </li>
           <li class="nav-item {{ request()->routeIs('admin.produk*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.produk.index') }}">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">folder</i>
               <p>Stok Produk</p>
             </a>
           </li>
           <li class="nav-item {{ request()->routeIs('admin.inputbahan*') ? 'active' : '' }}">
             <a class="nav-link" href="/inputbahan">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">drive_file_rename_outline</i>
               <p>Input Bahan Baku</p>
             </a>
           </li>
           <li class="nav-item {{ request()->routeIs('admin.input_produk*') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('admin.input_produk.index') }}">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">drive_file_rename_outline</i>
               <p>Input Produk</p>
             </a>
           </li>
           <li class="nav-item {{ request()->routeIs('admin.penjualan*') ? 'active' : '' }}">
             <a class="nav-link" href="/penjualan">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">shopping_cart</i>
               <p>Penjualan</p>
             </a>
           </li>
           <li class="nav-item {{ request()->routeIs('admin.laporan.pdf') ? 'active' : '' }}">
             <a class="nav-link" href="/laporan">
-              <i class="material-icons">dashboard</i>
+              <i class="material-icons">text_snippet</i>
               <p>Laporan</p>
             </a>
+          </li>
+          <li class="nav-item {{ request()->routeIs('logout') ? 'active' : '' }}" style="position: fixed; bottom: 0;">
+            <form action="/logout" method="POST">
+              {{ csrf_field() }}
+              <a href="javascript:;" class="nav-link" onclick="parentNode.submit();">
+                <i class="material-icons">logout</i>
+                <p>Logout</p>
+              </a>
+             </form>
           </li>
         </ul>
       </div>
@@ -123,6 +134,8 @@
 <script src="/material/assets/js/plugins/bootstrap-notify.js"></script>
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="/material/assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
+{{-- sweetalert2 --}}
+<script src="/sweetalert2/sweetalert2.all.min.js"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
 <script src="/material/assets/demo/demo.js"></script>
 <script>

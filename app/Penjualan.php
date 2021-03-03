@@ -11,7 +11,7 @@ class Penjualan extends Model
     protected $fillable = ['product_id', 'nama_pembeli', 'keterangan', 'total_harga', 'tanggal_beli'];
 
     public function Produk() {
-        return $this->belongsToMany('App\Produk', 'penjualan_produk', 'penjualan_id','product_id');
+        return $this->belongsToMany('App\Produk', 'penjualan_produk', 'penjualan_id','product_id')->withPivot('harga', 'jumlah');
 
     }
 }

@@ -26,4 +26,12 @@ class LoginController extends Controller
 
         return redirect()->intended('/login');
     }
+
+    public function logout()
+    {
+    if (Auth::guard('admin')->check()) {
+        Auth::guard('admin')->logout();
+    } 
+    return redirect('/login');
+    }
 }

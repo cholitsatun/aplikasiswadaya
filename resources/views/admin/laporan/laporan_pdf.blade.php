@@ -59,9 +59,10 @@
             <tr>
                 <th>No</th>
                 <th>Tanggal Masuk</th>
-                <th>Bahan Baku</th>
-                <th>Supplier</th>
-                <th>Jumlah</th>
+                <th>Nama Pelanggan</th>
+                <th>Produk</th>
+                <th>Keterangan</th>
+                <th>Total Harga</th>
             </tr>
         </thead>
         <tbody>

@@ -19,8 +19,7 @@ class BahanBakuController extends Controller
 
     public function store(Request $request){
         $tambahbahan = BahanBaku::create([
-            'nama_bahan' => request('bahan'),
-            'stok_bahan' => request('stok'),
+            'nama_bahan' => request('bahan'),            
             'kategori' => request('kategori'),
 
         ]);
@@ -46,4 +45,17 @@ class BahanBakuController extends Controller
         $bahan->delete();
         return redirect('/bahanbaku');
     }
+
+    public function index_bahan_dasar(){
+        $keterangan = "Dasar";
+        $bahan = BahanBaku::where('kategori', 0)->get();
+        return view('admin.bahan.bahanbaku', compact('bahan', 'keterangan'));
+    }
+
+    public function index_bahan_lain(){
+        $keterangan = "Lain";
+        $bahan = BahanBaku::where('kategori', 1)->get();
+        return view('admin.bahan.bahanbaku', compact('bahan', 'keterangan'));
+    }
+
 }

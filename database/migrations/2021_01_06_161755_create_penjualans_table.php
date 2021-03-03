@@ -20,10 +20,6 @@ class CreatePenjualansTable extends Migration
             $table->text('keterangan')->nullable();
             $table->integer('total_harga');
             $table->date('tanggal_beli');
- 
-        //foreign key
-        $table->unsignedBigInteger('product_id');
-        $table->foreign('product_id')->references('id')->on('produks')->onDelete('cascade');
         });
     }
 

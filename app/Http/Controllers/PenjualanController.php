@@ -18,30 +18,29 @@ class PenjualanController extends Controller
         return view('admin.penjualan.tambah', compact('produk'));
     }
 
-    public function store(Request $request){
-        $produk = Produk::find($request->addmore);
-        // $produk->update([
-        //     'stok_produk' => $produk->stok_produk - $request->jumlah
-        // ]);
-        $penjualan = Penjualan::findorNew($request->id);
-        $penjualan->tanggal_beli=$request->tanggal_beli;
-        $penjualan->nama_pembeli=$request->nama_pembeli;
-        $penjualan->keterangan=$request->keterangan;
-        $penjualan->total_harga=$request->total;
-        if ($penjualan->save()) {
-            foreach($request->addmore as $key => $value) {
-                Penjualan::create($value);
-            }
-        }
-        // Penjualan::create([
-        //     'tanggal_beli' => request('tanggal_beli'),
-        //     'nama_pembeli' => request('nama_pembeli'),
-        //     'keterangan' => request('keterangan'),
-        //     'total_harga' => request('total'),
-        // ]);
-        // foreach ($request->addmore as $key => $value) {
-        //     Penjualan::create($value);
-        // }
+    public function store(Request $request){        
+        $penjualan = Penjualan::create([
+            'tanggal_beli' => request('tanggal_beli'),
+            'nama_pembeli' => request('nama_pembeli'),
+            'keterangan' => request('keterangan'),
+            'total_harga' => request('total'),
+            ]);
+            
+        foreach ($request->addmore as $key => $value) {
+            // masukin ke tabel penghubung
+            $penjualan->Produk()->attach($value['product_id'],[
+                'harga' => $value['harga'],
+                'jumlah' => $value['jumlah'],
+            ]);                    
+
+            // kurangin produk
+            $produk = Produk::findOrFail($value['product_id']);
+            $new_stok_produk = $produk->stok_produk - $value['jumlah'];            
+            $produk->update([
+                'stok_produk' => $new_stok_produk,
+            ]);
+        }    
+
         return redirect()->route('admin.penjualan.index');
     }
 
@@ -82,6 +81,11 @@ class PenjualanController extends Controller
         return redirect()->route('admin.penjualan.index');
     }
 
+    public function pdf(){
+        $penjualan = Penjualan::all();
+        return view('admin.laporan.laporan', compact('inputbahan'));
+    }
+
     public function cetak_pdf()
     {
         //INISIASI 30 HARI RANGE SAAT INI JIKA HALAMAN PERTAMA KALI DI-LOAD
@@ -99,12 +103,12 @@ class PenjualanController extends Controller
         }
 
         //BUAT QUERY KE DB MENGGUNAKAN WHEREBETWEEN DARI TANGGAL FILTER
-        $penjualan = Penjualan::whereBetween('created_at', [$start, $end])->get();
+        $jual = Penjualan::whereBetween('created_at', [$start, $end])->get();
         //KEMUDIAN LOAD VIEW
-        return view('admin.laporan.laporan', compact('penjualan'));
+        return view('admin.laporan.laporan', compact('jual'));
     }
 
-        public function ReportPdf($daterange)
+    public function ReportPdf($daterange)
     {
         $date = explode('+', $daterange); //EXPLODE TANGGALNYA UNTUK MEMISAHKAN START & END
         //DEFINISIKAN VARIABLENYA DENGAN FORMAT TIMESTAMPS
@@ -112,29 +116,10 @@ class PenjualanController extends Controller
         $end = Carbon::parse($date[1])->format('Y-m-d') . ' 23:59:59';
 
         //KEMUDIAN BUAT QUERY BERDASARKAN RANGE CREATED_AT YANG TELAH DITETAPKAN RANGENYA DARI $START KE $END
-        $penjualan = Penjualan::whereBetween('created_at', [$start, $end])->get();
+        $jual = Penjualan::whereBetween('created_at', [$start, $end])->get();
         //LOAD VIEW UNTUK PDFNYA DENGAN MENGIRIMKAN DATA DARI HASIL QUERY
-        $pdf = PDF::loadView('admin.laporan.laporan_pdf', compact('penjualan', 'date'));
+        $pdf = PDF::loadView('admin.laporan.laporan_pdf', compact('jual', 'date'));
         //GENERATE PDF-NYA
         return $pdf->stream();
     }
-
-    // public function addMore()
-    // {
-
-    //     return view("addMore");
-    // }
-
-    // public function addMorePost(Request $request)
-    // {
-    //     $request->validate([
-    //         'addmore.*.name' => 'required',
-    //         'addmore.*.qty' => 'required',
-    //         'addmore.*.price' => 'required',
-    //     ]);
-    //     foreach ($request->addmore as $key => $value) {
-    //         Penjualan::create($value);
-    //     }
-    //     return back()->with('success', 'Record Created Successfully.');
-    // }
 }
