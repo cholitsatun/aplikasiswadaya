@@ -24,7 +24,7 @@
                 {{ method_field('PUT') }}
                       <div class="form-group">
                         <label>Tanggal</label>
-                        <input type="date" value="{{date("Y-m-d")}}" name="tanggal_beli" value="{{$penjualan->tanggal_beli}}">
+                        <input type="date" class="form-control"   value="{{date("Y-m-d")}}" name="tanggal_beli" value="{{$penjualan->tanggal_beli}}">
             
                       </div>
                       <div class="form-group">
@@ -33,6 +33,21 @@
                       </div>
                       <div class="form-group">
                         <label for="product_id">Produk</label>
+                        <table class="table-responsive" id="dynamicTable">
+                          <tr>
+                            <td>
+                              <select name="addmore[0][product_id]" data-style="btn btn-link" id="product_id">
+                                <option value="" selected="true" disabled="true" hidden="true">--Pilih Produk--</option>
+                                @foreach ($produk as $item)
+                                    <option value="{{$item->id}}"> {{$item->nama_produk}} </option>
+                                @endforeach
+                            </select>
+                            </td>
+                            <td><input type="number" class="calculate-harga" name="addmore[0][harga]" placeholder="Harga" value="{{}}"></td>
+                            <td><input type="number" class="calculate-jumlah" name="addmore[0][jumlah]" placeholder="Jumlah"></td>
+                            <td>&nbsp;<button type="button" id="add"><i class="fa fa-plus"></i></button></td>
+                          </tr>
+                        </table>
                         <select class="form-control selectpicker recalculate-produk" name="product_id" data-style="btn btn-link" id="product_id">
                             @foreach ($produk as $item)
                                 <option data-price="{{$item->harga}}" value="{{$item->id}}"> {{$item->nama_produk}} </option>

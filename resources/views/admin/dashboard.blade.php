@@ -123,7 +123,7 @@
                   </div>
                   <p class="card-category">Jumlah Produk Terjual</p>
                   <h3 class="card-title">
-                    {{$penjualan}}
+                    
                     <small>Produk</small>
                   </h3>
                 </div>

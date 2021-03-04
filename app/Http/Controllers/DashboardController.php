@@ -109,7 +109,6 @@ class DashboardController extends Controller
 
 
         // penjualan        
-        $penjualan = Penjualan::whereDate('tanggal_beli', Carbon::today())->sum('product_id');
 
 
         return view('admin.dashboard', compact(
@@ -119,7 +118,7 @@ class DashboardController extends Controller
             'bahans_terpakai',
             'total_bahan_masuk', 
             'bahans_masuk',
-            'penjualan'
+            
         ));
     }
 }

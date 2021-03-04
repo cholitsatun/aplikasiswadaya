@@ -58,7 +58,7 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Tanggal Masuk</th>
+                <th>Tanggal</th>
                 <th>Nama Pelanggan</th>
                 <th>Produk</th>
                 <th>Keterangan</th>
@@ -67,13 +67,18 @@
         </thead>
         <tbody>
 			@php $i=1 @endphp
-            @forelse ($bahan as $item)
+            @forelse ($jual as $item)
                 <tr>
 					<td>{{ $i++ }}</td>
-                    <td>{{ $item->tanggal_inb }}</td>
-                    <td>{{ $item->bahanbaku->nama_bahan }}<br></td>
-                    <td>{{ $item->supplier }}</td>
-                    <td>{{ $item->jumlah_inb }}</td>
+                    <td>{{$item->tanggal_beli}}</td>
+                    <td>{{$item->nama_pembeli}}</td>                              
+                    <td>
+                      @foreach ($item->Produk as $produk)
+                          - {{$produk->nama_produk}} | Rp.{{$produk->pivot->harga}} | @.{{$produk->pivot->jumlah}} <br>
+                      @endforeach
+                    </td>
+                    <td>{{$item->keterangan}}</td>
+                    <td>{{$item->total_harga}}</td>
                 </tr>
             @empty
             <tr>

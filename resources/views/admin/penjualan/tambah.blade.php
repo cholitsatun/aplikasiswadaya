@@ -90,6 +90,7 @@
   });
   $(document).on('click', '.remove-tr', function(){  
       $(this).parents('tr').remove();
+      getHarga();
   });  
   function getHarga() {
     const listTagTR = document.querySelectorAll('tr')

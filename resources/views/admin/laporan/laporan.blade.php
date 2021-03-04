@@ -14,7 +14,7 @@
             <div class="col-md-12">
             <div class="card" style="padding-left: 50px; padding-bottom: 30px;">
                 <br/>
-                <h5>Laporan Bahan Baku Berdasar Tanggal</h5> <br/>
+                <h5>Laporan Penjualan Berdasar Tanggal</h5> <br/>
                 <form action="{{ route('admin.laporan.pdf') }}" method="get">
                         <input type="text" id="created_at" name="date" class="form-control col-md-3">
                         <div class="input-group-append">
@@ -28,21 +28,27 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Tanggal Masuk</th>
-                                <th>Bahan Baku</th>
-                                <th>Supplier</th>
-                                <th>Jumlah</th>
+                                <th>Tanggal</th>
+                                <th>Nama Pelanggan</th>
+                                <th>Produk</th>
+                                <th>Keterangan</th>
+                                <th>Total Harga</th>
                             </tr>
                         </thead>
                         <tbody>
                             @php $i=1 @endphp
-                            @forelse ($bahan as $item)
+                            @forelse ($jual as $item)
                             <tr>
                                 <td>{{ $i++ }}</td>
-                                <td>{{$item->tanggal_inb}}</td>
-                                <td>{{$item->bahanbaku->nama_bahan}}</td>
-                                <td>{{$item->supplier}}</td>
-                                <td>{{$item->jumlah_inb}}</td>
+                                <td>{{$item->tanggal_beli}}</td>
+                                <td>{{$item->nama_pembeli}}</td>                              
+                                <td>
+                                  @foreach ($item->Produk as $produk)
+                                      - {{$produk->nama_produk}} | Rp.{{$produk->pivot->harga}} | @.{{$produk->pivot->jumlah}} <br>
+                                  @endforeach
+                                </td>
+                                <td>{{$item->keterangan}}</td>
+                                <td>{{$item->total_harga}}</td>
                             </tr>
                             @empty
                             <tr>

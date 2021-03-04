@@ -47,9 +47,6 @@
                               <td>{{$item->keterangan}}</td>
                               <td>{{$item->total_harga}}</td>
                               <td>
-                                <a href="/penjualan/{{$item->id}}/edit"><button type="button" rel="tooltip" class="btn btn-primary btn-link btn-sm">
-                                  <i class="material-icons">edit</i></button>
-                                </a>
                                 <form action="/penjualan/{{$item->id}}" method="POST" style="display:inline">
                                   {{ csrf_field() }}
                                   {{ method_field('DELETE') }}

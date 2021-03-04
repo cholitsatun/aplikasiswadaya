@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Produk;
 use App\Penjualan;
+use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
 class PenjualanController extends Controller
@@ -83,7 +85,7 @@ class PenjualanController extends Controller
 
     public function pdf(){
         $penjualan = Penjualan::all();
-        return view('admin.laporan.laporan', compact('inputbahan'));
+        return view('admin.laporan.laporan', compact('penjualan'));
     }
 
     public function cetak_pdf()
