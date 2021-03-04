@@ -90,11 +90,13 @@ class PenjualanController extends Controller
         return redirect()->route('admin.penjualan.index');
     }
 
+
     public function pdf(){
         $penjualan = Penjualan::all();
         return view('admin.laporan.laporan', compact('penjualan'));
     }
 
+    
     public function cetak_pdf()
     {
         //INISIASI 30 HARI RANGE SAAT INI JIKA HALAMAN PERTAMA KALI DI-LOAD
