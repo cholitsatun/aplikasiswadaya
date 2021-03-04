@@ -108,7 +108,35 @@ class DashboardController extends Controller
         }        
 
 
-        // penjualan        
+        // total penjualan
+        $total_penjualan = 0;
+
+        // penjualan tiap produk       
+        $produks_terjual = [];        
+        $i = 0;
+        $penjualan_ids = Penjualan::whereBetween('created_at', [$from, $to])->distinct()->get(['id'])->toArray();                                 
+        foreach ($penjualan_ids as $penjualan_id) {                                    
+            // Penjualannya
+            $penjualan = Penjualan::find($penjualan_id['id']);
+            // produk
+            $produks = $penjualan->Produk()->get();
+            // untuk setiap produk yang terjual, tambahkan ke produk terjual
+            foreach ($produks as $produk){                               
+                if (array_key_exists($produk->nama_produk, $produks_terjual)) {
+                    $produks_terjual[$produk->nama_produk]['jumlah'] += $produk->pivot->jumlah;
+                }
+                else {                    
+                    $produks_terjual[$produk->nama_produk] =  [
+                        'no' => $i+1,
+                        'nama_produk' => $produk->nama_produk, 
+                        'jumlah' => $produk->pivot->jumlah,
+                    ];
+                    $i++;
+                }
+                // total penjualan
+                $total_penjualan += $produk->pivot->jumlah;
+            }                
+        }        
 
 
         return view('admin.dashboard', compact(
@@ -118,7 +146,8 @@ class DashboardController extends Controller
             'bahans_terpakai',
             'total_bahan_masuk', 
             'bahans_masuk',
-            
+            'total_penjualan',
+            'produks_terjual'
         ));
     }
 }

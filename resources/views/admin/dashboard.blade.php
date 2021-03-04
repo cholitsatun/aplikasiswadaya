@@ -94,7 +94,7 @@
                   </h3>
                 </div>
                 <div class="card-footer">
-                  <table id="example" class="table table-striped table-bordered" style="width:100%">
+                  <table class="table table-striped table-bordered" style="width:100%">
                     <thead>
                       <tr>
                           <th>No</th>
@@ -123,14 +123,29 @@
                   </div>
                   <p class="card-category">Jumlah Produk Terjual</p>
                   <h3 class="card-title">
-                    
+                    {{$total_penjualan}}
                     <small>Produk</small>
                   </h3>
                 </div>
                 <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">date_range</i> Last 24 Hours
-                  </div>
+                  <table class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                      <tr>
+                          <th>No</th>
+                          <th>Produk Terjual</th>                                                  
+                          <th>Jumlah</th>                                                    
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @foreach ($produks_terjual as $produk)
+                          <tr>                                                      
+                            <td>{{$produk["no"]}}</td>
+                            <td>{{$produk["nama_produk"]}}</td>
+                            <td>{{$produk["jumlah"]}}</td>                            
+                          </tr>
+                      @endforeach
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

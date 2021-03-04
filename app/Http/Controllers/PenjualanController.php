@@ -46,39 +46,46 @@ class PenjualanController extends Controller
         return redirect()->route('admin.penjualan.index');
     }
 
-    public function edit($id) {
-        $produk = Produk::all();        
-        $penjualan = Penjualan::findOrFail($id);   
-        return view('admin.penjualan.edit', compact('produk', 'penjualan'));
-    }
+    // public function edit($id) {
+    //     $produk = Produk::all();        
+    //     $penjualan = Penjualan::findOrFail($id);   
+    //     return view('admin.penjualan.edit', compact('produk', 'penjualan'));
+    // }
 
-    public function update(Request $request, $id){
-        $produk = Produk::find($request->product_id);
-        $penjualan = Penjualan::find($id);    
-        $produk->update([
-            'stok_produk' => $produk->stok_produk + $penjualan->jumlah - $request->jumlah          
-        ]);
+    // public function update(Request $request, $id){
+    //     $produk = Produk::find($request->product_id);
+    //     $penjualan = Penjualan::find($id);    
+    //     $produk->update([
+    //         'stok_produk' => $produk->stok_produk + $penjualan->jumlah - $request->jumlah          
+    //     ]);
 
-        $penjualan->update([
-            'product_id' => request('product_id'),
-            'tanggal_beli' => request('tanggal_beli'),
-            'nama_pembeli' => request('nama_pembeli'),
-            'keterangan' => request('keterangan'),
-            'total_harga' => request('total'), 
-        ]);
+    //     $penjualan->update([
+    //         'product_id' => request('product_id'),
+    //         'tanggal_beli' => request('tanggal_beli'),
+    //         'nama_pembeli' => request('nama_pembeli'),
+    //         'keterangan' => request('keterangan'),
+    //         'total_harga' => request('total'), 
+    //     ]);
 
-        return redirect()->route('admin.penjualan.index');
-    }
+    //     return redirect()->route('admin.penjualan.index');
+    // }
 
     public function destroy($id) {
         // cari input produk
-        $penjualan = Penjualan::find($id);                
-        // undo bahan baku dan stok otomatis
-        $produk = Produk::find($penjualan->product_id);
-        $produk->update([                    
-            'stok_produk' => $produk->stok_produk + $penjualan->jumlah
-        ]);
-        // hapus input produk
+        $penjualan = Penjualan::findOrFail($id);                
+            
+        // undo stok produk
+        $produks = $penjualan->Produk()->get();
+        foreach ($produks as $produk) {
+            $produk->update([                    
+                'stok_produk' => $produk->stok_produk + $produk->pivot->jumlah,
+            ]);
+        }
+
+        //hapus tabel pivot
+        $penjualan->Produk()->detach();
+
+        // hapus penjualan
         $penjualan->delete();
         return redirect()->route('admin.penjualan.index');
     }
