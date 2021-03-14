@@ -36,8 +36,8 @@ class InputBahanController extends Controller
         InputBahan::create([
             'bahanbaku_id' => request('bahanbaku_id'),
             'supplier' => request('supplier'),
-            'jumlah_inb' => request('jumlah'),
-            'tanggal_inb' => request('tanggal'),
+            'jumlah_inb' => request('jumlah_inb'),
+            'tanggal_inb' => request('tanggal_inb'),
         ]);
         return redirect()->route('admin.inputbahan.index');
 

@@ -24,8 +24,11 @@
                 {{ method_field('PUT') }}
                       <div class="form-group">
                         <label class="bmd-label-floating">Nama Bahan</label>
-                        <input type="text" class="form-control" name="bahan" value="{{$bahan->nama_bahan}}">
+                        <input type="text" class="form-control" name="nama_bahan" value="{{$bahan->nama_bahan}}">
                       </div>
+                      @if ($errors->has('nama_bahan'))
+                      <p class="text-danger">{{$errors->first('nama_bahan')}}</p>
+                      @endif
                       <div class="form-group">
                         <label class="bmd-label-floating">Kategori</label>
                         <select class="form-control selectpicker" name="kategori" data-style="btn btn-link" id="kategori">                          
@@ -33,6 +36,12 @@
                           <option value=1 {{ $bahan->kategori == 1 ? 'selected' : '' }}>Bahan Lain</option>                                         
                         </select>                                                           
                       </div>
+                      @if ($bahan->kategori == 1)
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Stok</label>
+                          <input type="number" class="form-control" name="stok_bahan" value="{{$bahan->stok_bahan}}">
+                        </div>
+                      @endif
                       <button type="submit" class="btn btn-primary pull-right">Simpan</button>
                 </form>
                 </div>

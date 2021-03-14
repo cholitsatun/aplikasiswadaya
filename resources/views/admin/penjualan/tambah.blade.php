@@ -30,12 +30,17 @@
                       <div class="form-group">
                         <label>Tanggal</label>
                         <input type="date" class="form-control" value="{{date("Y-m-d")}}" name="tanggal_beli">
-            
                       </div>
+                      @if ($errors->has('tanggal_beli'))
+                       <p class="text-danger">{{$errors->first('tanggal_beli')}}</p>
+                      @endif
                       <div class="form-group">
                         <label class="bmd-label-floating">Nama Pelanggan</label>
                         <input type="text" class="form-control" name="nama_pembeli">
                       </div>
+                      @if ($errors->has('nama_pembeli'))
+                       <p class="text-danger">{{$errors->first('nama_pembeli')}}</p>
+                      @endif
                       <div class="form-group"> 
                         <label for="product_id">Produk</label>
                         <table class="table-responsive" id="dynamicTable">
@@ -53,15 +58,22 @@
                             <td>&nbsp;<button type="button" id="add"><i class="fa fa-plus"></i></button></td>
                           </tr>
                         </table>
+                        @if ($errors->has('addmore.*'))
+                         <p class="text-danger">Produk/Harga/Jumlah tidak boleh kosong</p>
+                        @endif
                       </div>
+
                       <div class="form-group">
                         <label class="bmd-label-floating">Keterangan</label>
                         <input type="text" class="form-control" name="keterangan">
                       </div>
                       <div class="form-group">
                         <label class="bmd-label-floating">Total Harga</label>
-                        <input type="number" id="total" class="form-control total" name="total" readonly>
+                        <input type="number" id="total" class="form-control total" name="total_harga" readonly>
                       </div>
+                      @if ($errors->has('total_harga'))
+                       <p class="text-danger">{{$errors->first('total_harga')}}</p>
+                      @endif
                       <button type="submit" class="btn btn-primary pull-right">Simpan</button>
                 </form>
                 </div>

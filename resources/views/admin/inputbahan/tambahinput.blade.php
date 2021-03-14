@@ -41,17 +41,17 @@
                       @endif
                       <div class="form-group">
                         <label class="bmd-label-floating">Jumlah</label>
-                        <input type="number" class="form-control" name="jumlah">
+                        <input type="number" class="form-control" name="jumlah_inb">
                       </div>
                       @if ($errors->has('jumlah_inb'))
-                      <p class="text-danger">{{$errors->first('jumlah')}}</p>
+                      <p class="text-danger">{{$errors->first('jumlah_inb')}}</p>
                       @endif
                       <div class="form-group">
                         <label class="bmd-label-floating">Tanggal</label>
-                        <input type="date" value="{{date("Y-m-d")}}" class="form-control" name="tanggal">
+                        <input type="date" value="{{date("Y-m-d")}}" class="form-control" name="tanggal_inb">
                       </div>
                       @if ($errors->has('tanggal_inb'))
-                      <p class="text-danger">{{$errors->first('tanggal')}}</p>
+                      <p class="text-danger">{{$errors->first('tanggal_inb')}}</p>
                       @endif
                       <button type="submit" class="btn btn-primary pull-right">Simpan</button>
                 </form>

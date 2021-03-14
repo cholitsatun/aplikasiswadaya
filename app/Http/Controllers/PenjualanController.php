@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\PenjualanRequest;
 
 class PenjualanController extends Controller
 {
@@ -21,8 +22,7 @@ class PenjualanController extends Controller
         return view('admin.penjualan.tambah', compact('produk'));
     }
 
-    public function store(Request $request){   
-        
+    public function store(PenjualanRequest $request){   
         DB::beginTransaction();
 
         $bahan_cukup = $this->add_penjualan($request);
@@ -36,7 +36,7 @@ class PenjualanController extends Controller
                 'tanggal_beli' => request('tanggal_beli'),
                 'nama_pembeli' => request('nama_pembeli'),
                 'keterangan' => request('keterangan'),
-                'total_harga' => request('total'),
+                'total_harga' => request('total_harga'),
                 ]);
                 
             foreach ($request->addmore as $key => $value) {
@@ -130,11 +130,17 @@ class PenjualanController extends Controller
 
         // kurangin produk
         foreach ($request->addmore as $key => $value) {
-        $produk = Produk::findOrFail($value['product_id']);
-        $new_stok_produk = $produk->stok_produk - $value['jumlah'];            
-        $produk->update([
-            'stok_produk' => $new_stok_produk,
-        ]);
+            $produk = Produk::findOrFail($value['product_id']);
+            if ($produk->stok_produk < $value['jumlah']) {
+                return False;
+            }
+            else {
+                $new_stok_produk = $produk->stok_produk - $value['jumlah'];            
+                $produk->update([
+                    'stok_produk' => $new_stok_produk,
+                ]);
+            }
         }
+        return True;
     }
 }

@@ -20,11 +20,11 @@ class BahanBakuController extends Controller
     public function store(Request $request){
         $errors = $this->validate($request, [
             'nama_bahan' => 'required',
-            'kategori' => 'required',
+            
         ]);
 
         $tambahbahan = BahanBaku::create([
-            'nama_bahan' => request('bahan'),            
+            'nama_bahan' => request('nama_bahan'),            
             'kategori' => request('kategori'),
 
         ]);
@@ -38,10 +38,24 @@ class BahanBakuController extends Controller
     }
 
     public function update(Request $request, $id){
-        BahanBaku::find($id)->update([
-            'nama_bahan' => request('bahan'),
-            'kategori' => request('kategori'),
+        $errors = $this->validate($request, [
+            'nama_bahan' => 'required', 
         ]);
+
+        $bahan_baku = BahanBaku::findOrFail($id);
+        if ($bahan_baku->kategori == 1) {
+            $bahan_baku->update([
+                'nama_bahan' => request('nama_bahan'),
+                'kategori' => request('kategori'),
+                'stok_bahan' => request('stok_bahan'),
+            ]);            
+        }
+        else {
+            $bahan_baku->update([
+                'nama_bahan' => request('nama_bahan'),
+                'kategori' => request('kategori'),                
+            ]);            
+        }
         return redirect('/bahanbaku');
     }
 

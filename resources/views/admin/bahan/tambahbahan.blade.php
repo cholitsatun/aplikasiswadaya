@@ -23,10 +23,10 @@
                 {{ csrf_field() }}
                       <div class="form-group">
                         <label class="bmd-label-floating">Nama Bahan</label>
-                        <input type="text" class="form-control" name="bahan">
+                        <input type="text" class="form-control" name="nama_bahan">
                       </div>
                       @if ($errors->has('nama_bahan'))
-                      <p class="text-danger">{{$errors->first('bahan')}}</p>
+                      <p class="text-danger">{{$errors->first('nama_bahan')}}</p>
                       @endif 
                       <div class="form-group">
                         <label class="bmd-label-floating">Kategori</label>
@@ -35,9 +35,6 @@
                             <option value=1>Bahan Lain</option>                                                    
                         </select>
                       </div>
-                      @if ($errors->has('kategori'))
-                      <p class="text-danger">{{$errors->first('kategori')}}</p>
-                      @endif
                       <button type="submit" class="btn btn-primary pull-right">Simpan</button>
                 </form>
                 </div>
