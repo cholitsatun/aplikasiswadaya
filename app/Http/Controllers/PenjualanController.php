@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use App\Produk;
 use App\Penjualan;
 use Carbon\Carbon;
-use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\DB;
 
 class PenjualanController extends Controller
 {
@@ -20,56 +21,47 @@ class PenjualanController extends Controller
         return view('admin.penjualan.tambah', compact('produk'));
     }
 
-    public function store(Request $request){        
-        $penjualan = Penjualan::create([
-            'tanggal_beli' => request('tanggal_beli'),
-            'nama_pembeli' => request('nama_pembeli'),
-            'keterangan' => request('keterangan'),
-            'total_harga' => request('total'),
-            ]);
-            
-        foreach ($request->addmore as $key => $value) {
-            // masukin ke tabel penghubung
-            $penjualan->Produk()->attach($value['product_id'],[
-                'harga' => $value['harga'],
-                'jumlah' => $value['jumlah'],
-            ]);                    
+    public function store(Request $request){   
+        
+        DB::beginTransaction();
 
-            // kurangin produk
-            $produk = Produk::findOrFail($value['product_id']);
-            $new_stok_produk = $produk->stok_produk - $value['jumlah'];            
-            $produk->update([
-                'stok_produk' => $new_stok_produk,
-            ]);
-        }    
+        $bahan_cukup = $this->add_penjualan($request);
+        
+        if ($bahan_cukup == False ) {
+            DB::rollback();
+            return redirect()->route('admin.penjualan.index')->withErrors(['Invalid - Produk tidak cukup']);           
+        }
+        else {
+            $penjualan = Penjualan::create([
+                'tanggal_beli' => request('tanggal_beli'),
+                'nama_pembeli' => request('nama_pembeli'),
+                'keterangan' => request('keterangan'),
+                'total_harga' => request('total'),
+                ]);
+                
+            foreach ($request->addmore as $key => $value) {
+                // masukin ke tabel penghubung
+                $penjualan->Produk()->attach($value['product_id'],[
+                    'harga' => $value['harga'],
+                    'jumlah' => $value['jumlah'],
+                ]);   
+            }
+         }
+        DB::commit();
+                         
+
+            // // kurangin produk
+            // $produk = Produk::findOrFail($value['product_id']);
+            // $new_stok_produk = $produk->stok_produk - $value['jumlah'];            
+            // $produk->update([
+            //     'stok_produk' => $new_stok_produk,
+            // ]);
+         
 
         return redirect()->route('admin.penjualan.index');
     }
 
-    // public function edit($id) {
-    //     $produk = Produk::all();        
-    //     $penjualan = Penjualan::findOrFail($id);   
-    //     return view('admin.penjualan.edit', compact('produk', 'penjualan'));
-    // }
-
-    // public function update(Request $request, $id){
-    //     $produk = Produk::find($request->product_id);
-    //     $penjualan = Penjualan::find($id);    
-    //     $produk->update([
-    //         'stok_produk' => $produk->stok_produk + $penjualan->jumlah - $request->jumlah          
-    //     ]);
-
-    //     $penjualan->update([
-    //         'product_id' => request('product_id'),
-    //         'tanggal_beli' => request('tanggal_beli'),
-    //         'nama_pembeli' => request('nama_pembeli'),
-    //         'keterangan' => request('keterangan'),
-    //         'total_harga' => request('total'), 
-    //     ]);
-
-    //     return redirect()->route('admin.penjualan.index');
-    // }
-
+   
     public function destroy($id) {
         // cari input produk
         $penjualan = Penjualan::findOrFail($id);                
@@ -132,5 +124,17 @@ class PenjualanController extends Controller
         $pdf = PDF::loadView('admin.laporan.laporan_pdf', compact('jual', 'date'));
         //GENERATE PDF-NYA
         return $pdf->stream();
+    }
+
+    private function add_penjualan($request) {
+
+        // kurangin produk
+        foreach ($request->addmore as $key => $value) {
+        $produk = Produk::findOrFail($value['product_id']);
+        $new_stok_produk = $produk->stok_produk - $value['jumlah'];            
+        $produk->update([
+            'stok_produk' => $new_stok_produk,
+        ]);
+        }
     }
 }

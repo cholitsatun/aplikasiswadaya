@@ -18,6 +18,11 @@ class BahanBakuController extends Controller
 
 
     public function store(Request $request){
+        $errors = $this->validate($request, [
+            'nama_bahan' => 'required',
+            'kategori' => 'required',
+        ]);
+
         $tambahbahan = BahanBaku::create([
             'nama_bahan' => request('bahan'),            
             'kategori' => request('kategori'),

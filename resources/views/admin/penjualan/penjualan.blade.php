@@ -13,6 +13,18 @@
   </nav>
   <div class="content">
     <div class="container-fluid">
+
+      @if($errors->any())
+      <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <i class="material-icons">close</i>
+        </button>
+        <span>            
+          {{$errors->first()}}
+        </span>
+      </div>
+      @endif
+
       <div class="row">
         <div class="col-md-12">
           <div class="card">

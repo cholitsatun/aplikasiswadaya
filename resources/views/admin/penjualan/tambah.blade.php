@@ -53,7 +53,6 @@
                             <td>&nbsp;<button type="button" id="add"><i class="fa fa-plus"></i></button></td>
                           </tr>
                         </table>
-
                       </div>
                       <div class="form-group">
                         <label class="bmd-label-floating">Keterangan</label>

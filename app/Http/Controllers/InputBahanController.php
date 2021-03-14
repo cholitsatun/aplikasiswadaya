@@ -21,6 +21,13 @@ class InputBahanController extends Controller
     }
 
     public function store(Request $request){
+        $this->validate($request, [
+            'bahanbaku_id' => 'required',
+            'supplier' => 'required',
+            'jumlah_inb' => 'required|numeric',
+            'tanggal_inb' => 'required'
+        ]);
+
         $bahanbaku = BahanBaku::find($request->bahanbaku_id);
         $bahanbaku->update([
             'stok_bahan' => $bahanbaku->stok_bahan + $request->jumlah
@@ -45,6 +52,13 @@ class InputBahanController extends Controller
 
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'bahanbaku_id' => 'required',
+            'supplier' => 'required',
+            'jumlah_inb' => 'required|numeric',
+            'tanggal_inb' => 'required'
+        ]);
+        
         $bahanbaku = BahanBaku::find($request->bahanbaku_id);
         $inputbahan = InputBahan::find($id);    
         $bahanbaku->update([
