@@ -30,7 +30,7 @@ class InputBahanController extends Controller
 
         $bahanbaku = BahanBaku::find($request->bahanbaku_id);
         $bahanbaku->update([
-            'stok_bahan' => $bahanbaku->stok_bahan + $request->jumlah
+            'stok_bahan' => $bahanbaku->stok_bahan + $request->jumlah_inb
         ]);
 
         InputBahan::create([
